@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelExperts", "TravelExpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelExpertsData", "TravelExpertsData\TravelExpertsData.csproj", "{16F05C0D-8148-440D-A4EF-B2B7461E2163}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagerAPI", "DataManagerAPI\DataManagerAPI.csproj", "{79EB5276-B5C0-47A5-AD2B-5E257688ABA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{16F05C0D-8148-440D-A4EF-B2B7461E2163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16F05C0D-8148-440D-A4EF-B2B7461E2163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16F05C0D-8148-440D-A4EF-B2B7461E2163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79EB5276-B5C0-47A5-AD2B-5E257688ABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79EB5276-B5C0-47A5-AD2B-5E257688ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79EB5276-B5C0-47A5-AD2B-5E257688ABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79EB5276-B5C0-47A5-AD2B-5E257688ABA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
