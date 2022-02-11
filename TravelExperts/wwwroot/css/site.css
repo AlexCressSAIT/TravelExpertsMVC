@@ -1,71 +1,173 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    --TravelBlue: #78A2CC;
+    font-size: 18px;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+/* Convert Theme defaults to custom Colour Scheme */
+.bg-blue {
+    background-color: var(--TravelBlue)
+}
+
+.table td {
+    border-color: var(--TravelBlue)
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: 5px solid var(--TravelBlue);
+}
+
+.btn-primary {
+    background-color: var(--TravelBlue)
+}
+
+/* Style for Jumbotron*/
+.jumbotron {
+    border: 1px solid var(--TravelBlue);
+    border-radius: 10px;
+}
+
+/* Navbar tabs styles */
+.navtab {
+    margin-left: 10px;
+    font-size: 24px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.navtab:hover {
+    color: black;
+    border: 1px solid black;
+}
+
+.cartIcon {
+    font-size: 24px;
+    padding-top: 9px;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.btn-placement {
+    margin-top: 40px;
+}
+
+
+@media screen and (max-width: 500px) {
+    table tr td:nth-child(3) {
+        display: block;
+    }
+
+    table tr td:nth-child(1), table tr td:nth-child(2) {
+        display: inline-block;
+        width: 50%;
+    }
+
+    table tr th:nth-child(1), table tr th:nth-child(2) {
+        display: inline-block;
+        width: 50%;
+    }
+
+    table tr th:nth-child(3) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .navtab {
+        font-size: 18px;
+    }
+    .cartIcon {
+        font-size: 18px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .navtab {
+        font-size: 24px;
+        text-align: center;
+    }
+    .cartIcon {
+        padding-top: 0px;
+        font-size: 24px;
+    }
+}
+@media screen and (max-width: 335px) {
+    .btn-placement {
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
 }

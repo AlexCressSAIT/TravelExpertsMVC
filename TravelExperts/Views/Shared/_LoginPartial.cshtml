@@ -1,0 +1,37 @@
+﻿@{
+}
+
+<!--
+Patial view for handling login/register list and varients
+Author: Daniel Palmer
+Date: 2022-02-05
+-->
+
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link navtab" asp-controller="" asp-action=""><i class="fas fa-shopping-cart cartIcon"></i></a>
+    </li>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link navtab" asp-controller="Customer" asp-action="Profile" title="Welcome">
+                Welcome @User.Identity.Name
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout"
+                  asp-route-returnUrl=@Url.Action("Index", "Home")>
+                <button type="submit" class="nav-link btn btn-link navtab">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link navtab" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link navtab" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+    }
+</ul>
