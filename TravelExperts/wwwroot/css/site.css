@@ -66,6 +66,10 @@ a {
     border: 1px solid black;
 }
 
+.cartIcon {
+    font-size: 24px;
+    padding-top: 9px;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -141,6 +145,26 @@ body {
     }
 }
 
+@media (max-width: 800px) {
+    .navtab {
+        font-size: 18px;
+    }
+    .cartIcon {
+        font-size: 18px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .navtab {
+        font-size: 24px;
+        text-align: center;
+    }
+    .cartIcon {
+        padding-top: 0px;
+        font-size: 24px;
+    }
+}
 @media screen and (max-width: 335px) {
     .btn-placement {
         margin-top: 0;
