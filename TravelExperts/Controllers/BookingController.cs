@@ -1,11 +1,11 @@
 ﻿using DataManagerAPI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using TravelExperts.Models;
 using TravelExpertsData;
 
 namespace TravelExperts.Controllers
@@ -37,12 +37,37 @@ namespace TravelExperts.Controllers
             return PackageManager.GetPackageById(packageId);
         }
 
+        [Route("/api/package/gallery/{packageId?}")]
+        public string[] GetPackagePhotos(int packageId)
+        {
+            string path = $@"{Directory.GetCurrentDirectory()}\wwwroot\media\images\vacations\{packageId}";
+            if (Directory.Exists(path))
+            {
+                return Directory.EnumerateFiles(path)
+                    .Select(p => $"/media/images/vacations/{packageId}/{Path.GetFileName(p)}")
+                    .ToArray();
+            }
+
+            return new string[] { };
+        }
+
         // GET: BookingController/Details/5
         public ActionResult ViewBookings(int id)
         {
             ViewBag.Customer = CustomerManager.GetCustomer(id);
             List<Booking> bookings = BookingManager.GetCustomerBookings(id).OrderByDescending(b => b.BookingDate).ToList();
             return View(bookings);
+        }
+
+        [HttpGet]
+        public ActionResult Options(int packageId)
+        {
+            TempData["packageId"] = packageId;
+            ViewBag.SelectNumTravelers = Utils.SelectRange(1, 10);
+            List<TripType> tripTypes = TripTypeManager.GetTripTypes();
+            ViewBag.SelectTripClass = new SelectList(tripTypes, "TripTypeId", "Ttname");
+            ViewBag.PackageName = PackageManager.GetPackageName(packageId);
+            return View();
         }
 
         // GET: BookingController/Create

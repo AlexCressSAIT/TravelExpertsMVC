@@ -15,9 +15,17 @@
         <p id="pkgDesc"></p>
         <span id="pkgStartDate"> - </span><span id="End Date"></span>
         <div id="pkgBasePrice"></div>
-        <form asp-controller="Cart" asp-action="AddItem">
+
+        @* Image carousel *@
+        <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
+            <div class="carousel-inner"></div>
+        </div>
+
+        <form class="container" asp-controller="Cart" asp-action="AddItem">
             <input id="selectedPackageId" name="packageId" type="hidden" />
-            <button type="submit">Add to Cart</button>
+            <div class="row my-2">
+                <button class="col-3 btn btn-secondary text-white mx-auto" type="submit">Add to Cart</button>
+            </div>
         </form>
     </div>
 </div>

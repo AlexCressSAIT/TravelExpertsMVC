@@ -21,5 +21,12 @@ namespace DataManagerAPI
             TravelExpertsContext db = new TravelExpertsContext();
             return db.Packages.SingleOrDefault(p => p.PackageId == packageId);
         }
+
+        public static string GetPackageName(int packageId)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            return db.Packages.Where(p => p.PackageId == packageId).Select(p => p.PkgName)
+                .SingleOrDefault();
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿<h2>@ViewBag.PackageName</h2>
+<form>
+    <div class="row">
+        <label class="col col-md-3">How many people are traveling?</label>
+    </div>
+    <div class="row">
+        <select class="col col-md-3" asp-items="@ViewBag.SelectNumTravelers"></select>
+    </div>
+    <div class="row">
+        <label class="col col-md-3">Travel Class</label>
+    </div>
+    <div class="row">
+        <select class="col col-md-3" asp-items="@ViewBag.SelectTripClass"></select>
+    </div>
+    <div class="row">
+        <button class="col col-md-1 btn btn-secondary" type="submit">Next</button>
+    </div>
+</form>

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TravelExperts.Models;
+using TravelExpertsData;
 
 namespace TravelExperts.Controllers
 {
@@ -21,6 +23,12 @@ namespace TravelExperts.Controllers
                 Packages = session.GetPackages()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddItem(int packageId)
+        {
+            return RedirectToAction("Options", "Booking", new { packageId = packageId });
         }
 
         // GET: CartController/Details/5
