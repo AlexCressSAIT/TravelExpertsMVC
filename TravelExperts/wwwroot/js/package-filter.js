@@ -38,11 +38,8 @@
         // reset the container
         carousel.empty();
 
-        alert("Carousel cleared!");
-
         // if data is an array
         if (Array.isArray(data)) {
-            alert("It's an array!");
             // Loop through all the image paths and load the images into the DOM
             for (let i = 0; i < data.length; i++) {
                 const imgSrc = data[i];
@@ -57,8 +54,6 @@
                 carouselItem.append(img);
                 carousel.append(carouselItem);
             }
-        } else {
-            alert("It's not an array!");
         }
     }
 

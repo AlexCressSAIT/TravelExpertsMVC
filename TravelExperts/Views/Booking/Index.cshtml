@@ -11,14 +11,22 @@
 
 <div id="pkgInfo" style="display: none" class="row">
     <div class="card" id="pkgInfoContent">
-        <h1 id="pkgName"></h1>
-        <p id="pkgDesc"></p>
-        <span id="pkgStartDate"> - </span><span id="End Date"></span>
-        <div id="pkgBasePrice"></div>
+        <div class="pl-md-3">
+            <h1 id="pkgName"></h1>
+            <p id="pkgDesc"></p>
+            <span id="pkgStartDate"> - </span><span id="End Date"></span>
+            <div id="pkgBasePrice"></div>
+        </div>
 
         @* Image carousel *@
         <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
             <div class="carousel-inner"></div>
+            <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
         </div>
 
         <form class="container" asp-controller="Cart" asp-action="AddItem">
