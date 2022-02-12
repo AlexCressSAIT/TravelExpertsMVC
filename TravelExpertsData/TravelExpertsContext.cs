@@ -50,7 +50,7 @@ namespace TravelExpertsData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
             modelBuilder.Entity<Affiliation>(entity =>
             {
@@ -152,6 +152,14 @@ namespace TravelExpertsData
                 entity.HasKey(e => e.CustomerId)
                     .HasName("aaaaaCustomers_PK")
                     .IsClustered(false);
+
+                entity.Property(e => e.CustPassword)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('password')");
+
+                entity.Property(e => e.CustUsername)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('temp')");
 
                 entity.HasOne(d => d.Agent)
                     .WithMany(p => p.Customers)
