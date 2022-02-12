@@ -65,11 +65,15 @@ a {
     border-top-right-radius: 10px;
 }
 
-    .list-group-item:last-child {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
+.list-group-item:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 
+.siteFont{
+    color: #fff;
+    font-size: 24px;
+}
 
 /* Style for Jumbotron*/
 .jumbotron {

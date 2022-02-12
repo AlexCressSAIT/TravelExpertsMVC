@@ -1,18 +1,19 @@
-﻿<h2>@ViewBag.PackageName</h2>
-<form>
-    <div class="row">
-        <label class="col col-md-3">How many people are traveling?</label>
-    </div>
-    <div class="row">
-        <select class="col col-md-3" asp-items="@ViewBag.SelectNumTravelers"></select>
-    </div>
-    <div class="row">
-        <label class="col col-md-3">Travel Class</label>
-    </div>
-    <div class="row">
-        <select class="col col-md-3" asp-items="@ViewBag.SelectTripClass"></select>
-    </div>
-    <div class="row">
-        <button class="col col-md-1 btn btn-secondary" type="submit">Next</button>
-    </div>
-</form>
+﻿<br />
+<br />
+<div style="padding-top:36px" class="jumbotron">
+    <h1 class="text-center">@ViewBag.PackageName</h1>
+    <hr class="blueRule" />
+    <form class="text-center">
+        <div class="form-group">
+            <label class="col col-md-6 siteFont">How many people are traveling?</label>
+            <select style="color: black" class="col col-md-6 siteFont" asp-items="@ViewBag.SelectNumTravelers"></select>
+        </div>
+        <div class="form-group">
+            <label class="col col-md-6 siteFont">Travel Class</label>
+            <select style="color: black" class="col col-md-6 siteFont" asp-items="@ViewBag.SelectTripClass"></select>
+        </div>
+        <div class="form-group">
+            <button  class=" btn btn-primary text-center siteFont" type="submit">Next</button>
+        </div>
+    </form>
+</div>
