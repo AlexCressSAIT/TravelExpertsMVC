@@ -9,7 +9,7 @@ Date: 2022-02-05
 
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link navtab" asp-controller="" asp-action=""><i class="fas fa-shopping-cart cartIcon"></i></a>
+        <a class="nav-link navtab" asp-controller="Cart" asp-action="ViewCart"><i class="fas fa-shopping-cart cartIcon"></i></a>
     </li>
     @if (User.Identity.IsAuthenticated)
     {
