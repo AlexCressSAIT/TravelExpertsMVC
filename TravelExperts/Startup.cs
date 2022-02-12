@@ -24,6 +24,12 @@ namespace TravelExperts
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
 
             // Get the connection string for TravelExpertsContext from config file
@@ -49,6 +55,8 @@ namespace TravelExperts
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             { 

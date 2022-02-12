@@ -1,0 +1,27 @@
+﻿@model TravelExperts.Models.CartViewModel
+
+@{
+    ViewData["Title"] = "ViewCart";
+}
+
+<h1>Cart</h1>
+
+<div class="row">
+    <partial name="_BookingSideMenuPartial" />
+
+    <div class="col-sm card px-0">
+        <div class="container-fluid">
+            <div class="row">
+                <h4 class="col-sm alert-secondary pl-2 py-2">Cart</h4>
+            </div>
+            <div class="row">
+                <div class="col m-auto">
+                    @if (Model.IsEmpty())
+                    {
+                        <h3 class="text-center font-italic text-secondary my-auto">Cart is empty</h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

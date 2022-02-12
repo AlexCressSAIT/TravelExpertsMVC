@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,18 @@ namespace DataManagerAPI
             TravelExpertsContext db = new TravelExpertsContext();
             return db.Customers.Find(id);
         }
+
+        public static List<Customer> GetCustomersWithBookings()
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+
+            return db.Customers.Include(c => c.Bookings).Where(c => c.Bookings.Count > 0).ToList();
+        }
+
+        public static List<Customer> GetCustomerList()
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+
+            return db.Customers.ToList();
+        }
     }
-}
