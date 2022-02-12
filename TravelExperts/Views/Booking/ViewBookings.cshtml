@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TravelExpertsData.Booking>
+
+@{
+    ViewData["Title"] = "ViewBookings";
+}
+
+<h1>Bookings for @ViewBag.Customer.CustFirstName @ViewBag.Customer.CustLastName</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TravelerCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TripTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="accordion">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <tr class="btn card-header" data-toggle="collapse" onclick="window.location.href = '#collapse-@item.BookingId'">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TravelerCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TripTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackageId)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+                <tr id="collapse-@item.BookingId" class="collapse hide" data-parent="#accordion">
+                    <td class="card-body">
+                        Booking details go here
+                    </td>
+                </tr>
+
+            </div>
+        }
+    </tbody>
+</table>

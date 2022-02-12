@@ -1,0 +1,38 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Book a Vacation Package";
+}
+<script src="/js/package-filter.js" defer></script>
+
+<form class="row form-group" asp-controller="Booking" asp-action="BookPackage">
+    <label class="col-12 text-center col-md-auto col-form-label font-weight-bold" for="selectedPackage">Select a vacation package:</label>
+    <select class="col-8 mx-auto mx-sm-0 col-md-3 form-control" id="selectedPackage" name="selectedPackageId" asp-items='@new SelectList(Model, "Value", "Text")'></select>
+</form>
+
+<div id="pkgInfo" style="display: none" class="row">
+    <div class="card" id="pkgInfoContent">
+        <h1 id="pkgName"></h1>
+        <p id="pkgDesc"></p>
+        <span id="pkgStartDate"> - </span><span id="End Date"></span>
+        <div id="pkgBasePrice"></div>
+        <form asp-controller="Cart" asp-action="AddItem">
+            <input id="selectedPackageId" name="packageId" type="hidden" />
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+</div>
+@*<partial name="_BookingSideMenuPartial" />*@
+@*<div class="row">
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a class="list-group-item active table-hover" asp-controller="Booking" asp-action="Cart">Cart</a>
+            <a class="list-group-item" asp-controller="Product" asp-action="List">Products</a>
+            <a class="list-group-item" asp-controller="Package" asp-action="List">Packages</a>
+        </div>
+    </div>
+</div>*@
+
+@*<form asp-controller="Booking" asp-action="ViewBookings">
+    <select name="id" asp-items="@(new SelectList(ViewBag.Customers, "ID", "FullName"))"></select>
+    <button type="submit" class="btn btn-primary">Get Bookings</button>
+</form>*@
