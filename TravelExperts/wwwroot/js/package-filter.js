@@ -45,7 +45,6 @@
                 const imgSrc = data[i];
                 const img = new Image();
                 img.src = imgSrc;
-                console.log(img);
                 const carouselItem = $('<div></div>');
                 carouselItem.addClass('carousel-item');
                 if (i === 0)
