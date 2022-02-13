@@ -1,0 +1,93 @@
+﻿@model TravelExpertsData.Customer
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustFirstName" class="control-label"></label>
+                <input asp-for="CustFirstName" class="form-control" />
+                <span asp-validation-for="CustFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustLastName" class="control-label"></label>
+                <input asp-for="CustLastName" class="form-control" />
+                <span asp-validation-for="CustLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustUsername" class="control-label"></label>
+                <input asp-for="CustUsername" class="form-control" />
+                <span asp-validation-for="CustUsername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustPassword" class="control-label"></label>
+                <input type="password" asp-for="CustPassword" class="form-control" />
+                <span asp-validation-for="CustPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustEmail" class="control-label"></label>
+                <input asp-for="CustEmail" class="form-control" />
+                <span asp-validation-for="CustEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustAddress" class="control-label"></label>
+                <input asp-for="CustAddress" class="form-control" />
+                <span asp-validation-for="CustAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustCity" class="control-label"></label>
+                <input asp-for="CustCity" class="form-control" />
+                <span asp-validation-for="CustCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustProv" class="control-label"></label>
+                <input asp-for="CustProv" class="form-control" />
+                <span asp-validation-for="CustProv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustPostal" class="control-label"></label>
+                <input asp-for="CustPostal" class="form-control" />
+                <span asp-validation-for="CustPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustCountry" class="control-label"></label>
+                <input asp-for="CustCountry" class="form-control" />
+                <span asp-validation-for="CustCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustHomePhone" class="control-label"></label>
+                <input asp-for="CustHomePhone" class="form-control" />
+                <span asp-validation-for="CustHomePhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustBusPhone" class="control-label"></label>
+                <input asp-for="CustBusPhone" class="form-control" />
+                <span asp-validation-for="CustBusPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
