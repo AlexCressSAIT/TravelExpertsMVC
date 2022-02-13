@@ -19,41 +19,54 @@ namespace TravelExpertsData
         }
 
         [Key]
+        [Display(Name = "Account No.")]
         public int CustomerId { get; set; }
         [Required]
         [StringLength(25)]
+        [Display(Name = "First Name")]
         public string CustFirstName { get; set; }
         [Required]
         [StringLength(25)]
+        [Display(Name = "Last Name")]
         public string CustLastName { get; set; }
         [Required]
         [StringLength(75)]
+        [Display(Name = "Address")]
         public string CustAddress { get; set; }
         [Required]
         [StringLength(50)]
+        [Display(Name = "City")]
         public string CustCity { get; set; }
         [Required]
         [StringLength(2)]
+        [Display(Name = "Provice/State")]
         public string CustProv { get; set; }
         [Required]
         [StringLength(7)]
+        [Display(Name = "Postal/Zip Code")]
         public string CustPostal { get; set; }
         [Required]
         [StringLength(25)]
+        [Display(Name = "Country")]
         public string CustCountry { get; set; }
         [Required]
         [StringLength(20)]
+        [Display(Name = "Home Phone")]
         public string CustHomePhone { get; set; }
         [StringLength(20)]
+        [Display(Name = "Business Phone")]
         public string CustBusPhone { get; set; }
         [StringLength(50)]
+        [Display(Name = "Email")]
         public string CustEmail { get; set; }
         public int? AgentId { get; set; }
         [Required]
         [StringLength(50)]
+        [Display(Name = "Username")]
         public string CustUsername { get; set; }
         [Required]
         [StringLength(50)]
+        [Display(Name = "Password")]
         public string CustPassword { get; set; }
 
         [ForeignKey(nameof(AgentId))]
