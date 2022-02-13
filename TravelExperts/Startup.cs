@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace TravelExperts
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt => opt.LoginPath = "/Account/Login");
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(3600);
@@ -53,7 +55,7 @@ namespace TravelExperts
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

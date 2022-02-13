@@ -14,7 +14,7 @@ Date: 2022-02-05
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link navtab" asp-controller="Customer" asp-action="Profile" title="Welcome">
+            <a class="nav-link navtab" asp-controller="Profile" asp-action="CustomerProfile" asp-route-id="@ViewBag.CustId")" title="Welcome">
                 Welcome @User.Identity.Name
             </a>
         </li>

@@ -43,5 +43,11 @@ namespace DataManagerAPI
             db.Customers.Add(customer);
             db.SaveChanges();
         }
+
+        public static Customer Authenticate(string username, string password)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            return db.Customers.SingleOrDefault(c => c.CustUsername == username && c.CustPassword == password);
+        }
     }
 }
