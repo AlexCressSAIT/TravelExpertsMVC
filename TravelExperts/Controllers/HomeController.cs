@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace TravelExperts.Controllers
     {
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("CurrentCustomer") != null)
+            {
+                ViewBag.CustId = (int)HttpContext.Session.GetInt32("CurrentCustomer");
+            }
             return View();
         }
 

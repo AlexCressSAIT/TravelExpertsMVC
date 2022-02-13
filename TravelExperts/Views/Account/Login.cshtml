@@ -1,0 +1,42 @@
+﻿@model TravelExpertsData.Customer
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!--
+Account Login view provides user a page to login into the website
+Author: Daniel Palmer
+Date: 2022-02-12
+-->
+
+<form asp-action="Login">
+    <h3>Login</h3>
+    @if (ViewBag.Confirm != null)
+    {
+        <h4>@ViewBag.Confirm</h4>
+    }
+
+    <table class="table homebodytext">
+        <tr>
+            <td>Username</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" asp-for="CustUsername" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="password" asp-for="CustPassword" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Log in" class="btn btn-primary homebodytext" />
+            </td>
+        </tr>
+    </table>
+</form>
