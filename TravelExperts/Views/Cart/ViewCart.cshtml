@@ -5,8 +5,6 @@
     ViewData["Title"] = "Shopping Cart";
 } 
 
-<h1>Cart</h1>
-
 <div class="row">
     @*<partial name="_BookingSideMenuPartial" />*@
 
@@ -20,7 +18,7 @@
                     <div class="container">
                         @if (CartIsEmpty)
                         {
-                        <h3 style="color:#fff" class="text-center font-italic my-auto">Cart is empty</h3>
+                            <h3 style="color:#fff" class="text-center font-italic my-auto">Cart is empty</h3>
                         }
                         else
                         {
@@ -33,6 +31,7 @@
                                     <div class="col-12"><h3 class="font-weight-bold">@cartItem.Package.PkgName </h3></div>
                                     <div class="col-12"><span class="font-italic">&quot;@cartItem.Package.PkgDesc &quot;</span></div>
                                     <div class="col-12"><span class="font-weight-bold">@cartItem.TripDuration days </span></div>
+                                    <div class="col-12"><span class="font-weight-bold">@cartItem.NumTravelers guests x @cartItem.Package.PkgBasePrice.ToString("c") </span></div>
                                 </div>
                             }
                         }
@@ -41,6 +40,9 @@
                         {
                             <div class="row">
                                 <div class="col-12"><span class="font-weight-bold">Total:</span> @totalPrice.ToString("c") </div>
+                            </div>
+                            <div class="row">
+                                <a class="btn btn-secondary" asp-controller="Booking" asp-action="Checkout">Checkout</a>
                             </div>
                         }
                     </div>

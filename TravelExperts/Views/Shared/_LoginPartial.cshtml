@@ -1,5 +1,5 @@
-﻿@{
-}
+﻿@{ List<CartItemViewModel> cartItems = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
+@{ bool CartIsEmpty = (cartItems == null || cartItems.Count == 0) ? true : false; }
 
 <!--
 Patial view for handling login/register list and varients
@@ -9,7 +9,13 @@ Date: 2022-02-05
 
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link navtab" asp-controller="Cart" asp-action="ViewCart"><i class="fas fa-shopping-cart cartIcon"></i></a>
+        <a class="nav-link navtab" asp-controller="Cart" asp-action="ViewCart">
+            <i class="fas fa-shopping-cart cartIcon"></i>
+            @if (!CartIsEmpty)
+            {
+                <span class="badge badge-pill badge-secondary">@cartItems.Count </span>
+            }
+        </a>
     </li>
     @if (User.Identity.IsAuthenticated)
     {
