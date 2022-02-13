@@ -1,9 +1,6 @@
 ﻿using DataManagerAPI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TravelExpertsData;
 
 namespace TravelExperts.Models
