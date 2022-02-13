@@ -1,0 +1,21 @@
+﻿@model CartItemViewModel
+
+<div class="row bg-secondary">
+    <h3 class="col col-md-12 text-white">Trip Details:</h3>
+    <div class="col col-md-12 text-white">
+        <h4>@Model.Package.PkgName</h4>
+        <div><span class="font-weight-bold">Depart:</span> @Model.Package.PkgStartDate</div>
+        <div><span class="font-weight-bold">Return:</span> @Model.Package.PkgEndDate</div>
+        <div><span class="font-weight-bold">Trip Duration:</span> @Model.TripDuration days</div>
+        <div><span class="font-weight-bold">Guests:</span> @Model.NumTravelers</div>
+        <div><span class="font-weight-bold">Trip Type:</span> @Model.TripTypeName</div>
+        <div><span class="font-weight-bold">Cost per guest:</span> @Model.Package.PkgBasePrice.ToString("c")</div>
+        <div><span class="font-weight-bold">Trip Total:</span> @((Model.Package.PkgBasePrice * Convert.ToDecimal(Model.NumTravelers)).ToString("c"))</div>
+    </div>
+    <form asp-controller="Cart" asp-action="SaveCartItem">
+        <input type="hidden" name="packageId" value="@Model.Package.PackageId" />
+        <input type="hidden" name="numTravelers" value="@Model.NumTravelers" />
+        <input type="hidden" name="tripTypeId" value="@Model.TripTypeId" />
+        <button type="submit" class="btn btn-secondary">Save to Cart</button>
+    </form>
+</div>

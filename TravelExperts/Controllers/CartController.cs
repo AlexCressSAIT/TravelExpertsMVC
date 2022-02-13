@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataManagerAPI;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TravelExperts.Models;
-using TravelExpertsData;
 
 namespace TravelExperts.Controllers
 {
@@ -17,11 +14,7 @@ namespace TravelExperts.Controllers
         public ActionResult ViewCart()
         {
             BookingSession session = new BookingSession(HttpContext.Session);
-            CartViewModel model = new CartViewModel
-            {
-                Products = session.GetProducts(),
-                Packages = session.GetPackages()
-            };
+            List<CartItemViewModel> model = session.GetCartItems();
             return View(model);
         }
 
@@ -29,6 +22,19 @@ namespace TravelExperts.Controllers
         public ActionResult AddItem(int packageId)
         {
             return RedirectToAction("Options", "Booking", new { packageId = packageId });
+        }
+        
+        [HttpPost]
+        public ActionResult SaveCartItem(int packageId, int numTravelers, string tripTypeId)
+        {
+            BookingSession session = new BookingSession(HttpContext.Session);
+            List<CartItemViewModel> cart = session.GetCartItems();
+            cart.Add(
+                CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId)
+                );
+            session.SetCartItems(cart);
+
+            return RedirectToAction("ViewCart");
         }
 
         // GET: CartController/Details/5

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -68,6 +69,25 @@ namespace TravelExperts.Controllers
             ViewBag.SelectTripClass = new SelectList(tripTypes, "TripTypeId", "Ttname");
             ViewBag.PackageName = PackageManager.GetPackageName(packageId);
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult FinalizeOptions(int packageId, int numTravelers, string travelClass)
+        {
+            CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, travelClass);
+/*            TripType tt = TripTypeManager.GetTripTypes().Where(tt => tt.TripTypeId == travelClass)
+                .SingleOrDefault();
+            Package pkg = PackageManager.GetPackageById(packageId);
+
+            CartItemViewModel cartItemView = new CartItemViewModel
+            {
+                Package = pkg,
+                NumTravelers = numTravelers,
+                TripTypeId = tt.TripTypeId,
+                TripTypeName = tt.Ttname,
+                TripDuration = ((TimeSpan)(pkg.PkgEndDate - pkg.PkgStartDate)).Days
+            };*/
+            return View(cartItemView);
         }
 
         // GET: BookingController/Create
