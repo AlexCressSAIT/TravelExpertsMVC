@@ -72,9 +72,9 @@ namespace TravelExperts.Controllers
         }
 
         [HttpPost]
-        public ActionResult FinalizeOptions(int packageId, int numTravelers, string travelClass)
+        public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
-            CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, travelClass);
+            CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
 /*            TripType tt = TripTypeManager.GetTripTypes().Where(tt => tt.TripTypeId == travelClass)
                 .SingleOrDefault();
             Package pkg = PackageManager.GetPackageById(packageId);
