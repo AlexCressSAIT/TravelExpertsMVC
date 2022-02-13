@@ -9,32 +9,21 @@ namespace TravelExperts.Models
 {
     public class BookingSession
     {
-        private const string PRODUCTS_KEY = "productList";
-        private const string PACKAGES_KEY = "packageList";
+        private const string CART_ITEMS_KEY = "cartItems";
         private ISession session { get; set; }
         public BookingSession(ISession session)
         {
             this.session = session;
         }
 
-        public void SetProducts(List<Product> products)
+        public void SetCartItems(List<CartItemViewModel> cartItems)
         {
-            session.SetObject(PRODUCTS_KEY, products);
+            session.SetObject("cartItems", cartItems);
         }
 
-        public void SetPackages(List<Package> packages)
+        public List<CartItemViewModel> GetCartItems()
         {
-            session.SetObject(PACKAGES_KEY, packages);
-        }
-
-        public List<Product> GetProducts()
-        {
-            return session.GetObject<List<Product>>(PRODUCTS_KEY) ?? new List<Product>();
-        }
-
-        public List<Package> GetPackages()
-        {
-            return session.GetObject<List<Package>>(PACKAGES_KEY) ?? new List<Package>();
+            return session.GetObject<List<CartItemViewModel>>(CART_ITEMS_KEY) ?? new List<CartItemViewModel>();
         }
     }
 }
