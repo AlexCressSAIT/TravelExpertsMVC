@@ -74,6 +74,13 @@ namespace TravelExperts.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
+            int customerId = HttpContext.Session.GetInt32("CurrentCustomer") ?? 0;
+
+            if (customerId < 1)
+            {
+                HttpContext.Session.SetObject<bool>("CustomerLoggedIn", false);
+                return RedirectToAction("Login", "Account");
+            }
             // Get the current booking session
             BookingSession session = new BookingSession(HttpContext.Session);
 
@@ -94,7 +101,8 @@ namespace TravelExperts.Controllers
                     BookingNo = bookingNo,
                     PackageId = i.Package.PackageId,
                     TravelerCount = i.NumTravelers,
-                    TripTypeId = i.TripTypeId
+                    TripTypeId = i.TripTypeId,
+                    CustomerId = customerId
                 }
             ).ToList();
 

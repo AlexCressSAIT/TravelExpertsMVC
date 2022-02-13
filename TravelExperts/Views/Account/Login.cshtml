@@ -9,7 +9,33 @@ Author: Daniel Palmer
 Date: 2022-02-12
 -->
 
+@{ 
+    bool wasLoggedIn = !Context.Session.Keys.Contains("CustomerLoggedIn");
+}
+@if (!wasLoggedIn)
+{
+<div class="alert alert-warning text-dark" id="login-warning">
+    You must be logged in to book your package(s)!
+    <script>
+        function fadeOut(query) {
+            const elem = document.querySelector(query);
+            elem.style.transition = "0.6s ease-in-out all";
+            elem.style.opacity = '0';
+            setTimeout(() => {
+                elem.style.display = 'none';
+            }, 1000);
+        }
+    </script>
+    <button type="button" class="close" onclick="fadeOut('#login-warning'); document.querySelector('#CustUsername').focus();">&times;</button>
+</div>
+}
+
 <form asp-action="Login">
+    @if (!wasLoggedIn)
+    {
+        <input name="ReturnUrl" type="hidden" value="/Cart" />
+        Context.Session.Remove("CustomerLoggedIn");
+    }
     <h3>Login</h3>
     @if (ViewBag.Confirm != null)
     {

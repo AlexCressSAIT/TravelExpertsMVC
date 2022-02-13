@@ -58,6 +58,7 @@ namespace TravelExperts.Controllers
         {
             HttpContext.Session.SetInt32("CurrentCustomer", 0);
             await HttpContext.SignOutAsync();
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 
