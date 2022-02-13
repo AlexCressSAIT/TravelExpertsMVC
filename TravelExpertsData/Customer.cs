@@ -68,6 +68,7 @@ namespace TravelExpertsData
         [StringLength(50)]
         [Display(Name = "Password")]
         public string CustPassword { get; set; }
+        [NotMapped]
         [Display(Name="Confirm Password")]
         [Compare("CustPassword", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; }

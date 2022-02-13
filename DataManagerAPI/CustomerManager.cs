@@ -32,5 +32,16 @@ namespace DataManagerAPI
 
             return db.Customers.ToList();
         }
+        /// <summary>
+        /// Add provided customer to database
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <author>Daniel Palmer</author>
+        public static void AddCustomer(Customer customer)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            db.Customers.Add(customer);
+            db.SaveChanges();
+        }
     }
 }
