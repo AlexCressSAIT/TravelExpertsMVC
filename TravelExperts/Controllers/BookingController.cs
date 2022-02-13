@@ -71,22 +71,47 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Checkout()
+        {
+            // Get the current booking session
+            BookingSession session = new BookingSession(HttpContext.Session);
+
+            // Get the cart items
+            List<CartItemViewModel> items = session.GetCartItems();
+
+            // If the cart is empty, redirect to the home page
+            if (items.Count == 0)
+                return RedirectToAction("Index", "Home");
+
+            // Use a random uuid as a booking number to tie all the packages to one "booking"
+            string bookingNo = Guid.NewGuid().ToString();
+
+            // Create bookings from the cart data for each item
+            List<Booking> bookings = items.Select(i =>
+                new Booking {
+                    BookingDate = DateTime.Now,
+                    BookingNo = bookingNo,
+                    PackageId = i.Package.PackageId,
+                    TravelerCount = i.NumTravelers,
+                    TripTypeId = i.TripTypeId
+                }
+            ).ToList();
+
+            // Add the bookings to the database
+            BookingManager.AddBookings(bookings);
+
+            // Clear the cart
+            session.ClearCart();
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
             CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
-/*            TripType tt = TripTypeManager.GetTripTypes().Where(tt => tt.TripTypeId == travelClass)
-                .SingleOrDefault();
-            Package pkg = PackageManager.GetPackageById(packageId);
 
-            CartItemViewModel cartItemView = new CartItemViewModel
-            {
-                Package = pkg,
-                NumTravelers = numTravelers,
-                TripTypeId = tt.TripTypeId,
-                TripTypeName = tt.Ttname,
-                TripDuration = ((TimeSpan)(pkg.PkgEndDate - pkg.PkgStartDate)).Days
-            };*/
             return View(cartItemView);
         }
 

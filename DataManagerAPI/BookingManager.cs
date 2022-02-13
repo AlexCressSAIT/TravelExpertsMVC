@@ -17,17 +17,17 @@ namespace DataManagerAPI
             return db.Bookings.Where(b => b.CustomerId == customerId).ToList();
         }
 
-        public static void AddBooking(Booking booking)
+        public static void AddBooking(Booking booking, TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
-            booking.BookingDate = DateTime.Now;
-            booking.BookingNo = "asdfas";
-            booking.CustomerId = 121;
-            booking.TravelerCount = 3;
-            booking.TripTypeId = "B";
-            booking.PackageId = 1;
+            db ??= new TravelExpertsContext();
             db.Bookings.Add(booking);
             db.SaveChanges();
+        }
+
+        public static void AddBookings(List<Booking> bookings)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            bookings.ForEach(b => AddBooking(b, db));
         }
     }
 }

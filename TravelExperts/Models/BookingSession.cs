@@ -25,5 +25,10 @@ namespace TravelExperts.Models
         {
             return session.GetObject<List<CartItemViewModel>>(CART_ITEMS_KEY) ?? new List<CartItemViewModel>();
         }
+
+        public void ClearCart()
+        {
+            session.SetObject("cartItems", new List<CartItemViewModel>());
+        }
     }
 }
