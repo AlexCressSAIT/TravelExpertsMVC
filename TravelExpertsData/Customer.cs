@@ -41,6 +41,7 @@ namespace TravelExpertsData
         [StringLength(2)]
         [Display(Name = "Provice/State")]
         public string CustProv { get; set; }
+        [RegularExpression(@"[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ - NPRSTV - Z]\d[ABCEGHJ - NPRSTV - Z]\d", ErrorMessage = "Please enter a valid Postal Code")]
         [Required(ErrorMessage = "Postal code is required")]
         [StringLength(7)]
         [Display(Name = "Postal/Zip Code")]
@@ -50,12 +51,16 @@ namespace TravelExpertsData
         [Display(Name = "Country")]
         public string CustCountry { get; set; }
         [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
         [StringLength(20)]
         [Display(Name = "Home Phone")]
         public string CustHomePhone { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
         [StringLength(20)]
         [Display(Name = "Business Phone")]
         public string CustBusPhone { get; set; }
+        [RegularExpression(@"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$",
+                            ErrorMessage = "Please enter a valid email address")]
         [StringLength(50)]
         [Display(Name = "Email")]
         public string CustEmail { get; set; }
