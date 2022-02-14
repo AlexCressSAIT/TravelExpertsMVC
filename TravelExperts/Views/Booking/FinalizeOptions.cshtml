@@ -1,21 +1,37 @@
 ﻿@model CartItemViewModel
 
-<div class="row bg-secondary">
-    <h3 class="col col-md-12 text-white">Trip Details:</h3>
+<br />
+<br />
+<div style="padding-top:36px" class="jumbotron">
+    <h1 class="col col-md-12 text-white">Trip Details</h1>
+    <hr class="blueRule" />
     <div class="col col-md-12 text-white">
         <h4>@Model.Package.PkgName</h4>
-        <div><span class="font-weight-bold">Depart:</span> @Model.Package.PkgStartDate</div>
-        <div><span class="font-weight-bold">Return:</span> @Model.Package.PkgEndDate</div>
-        <div><span class="font-weight-bold">Trip Duration:</span> @Model.TripDuration days</div>
-        <div><span class="font-weight-bold">Guests:</span> @Model.NumTravelers</div>
-        <div><span class="font-weight-bold">Trip Type:</span> @Model.TripTypeName</div>
-        <div><span class="font-weight-bold">Cost per guest:</span> @Model.Package.PkgBasePrice.ToString("c")</div>
-        <div><span class="font-weight-bold">Trip Total:</span> @((Model.Package.PkgBasePrice * Convert.ToDecimal(Model.NumTravelers)).ToString("c"))</div>
+        <dl class="row siteFont">
+            <dt class="offset-sm-1 col-sm-3">Depart</dt>
+            <dd class="col-sm-7">@ViewBag.Sd</dd>
+            <dt class="offset-sm-1 col-sm-3">Return</dt>
+            <dd class="col-sm-7"> @ViewBag.Ed</dd>
+            <dt class="offset-sm-1 col-sm-3">Trip Duration</dt>
+            <dd class="col-sm-7"> @Model.TripDuration days</dd>
+            <dt class="offset-sm-1 col-sm-3">Guests</dt>
+            <dd class="col-sm-7"> @Model.NumTravelers</dd>
+            <dt class="offset-sm-1 col-sm-3">Trip Type</dt>
+            <dd class="col-sm-7"> @Model.TripTypeName</dd>
+            <dt class="offset-sm-1 col-sm-3">Cost per guest</dt>
+            <dd class="col-sm-7"> @Model.Package.PkgBasePrice.ToString("c")</dd>
+            <dt class="offset-sm-1 col-sm-3">Trip Total</dt>
+            <dd class="col-sm-7"> @((Model.Package.PkgBasePrice * Convert.ToDecimal(Model.NumTravelers)).ToString("c"))</dd>
+        </dl>
     </div>
+    <hr class="blueRule" />
     <form asp-controller="Cart" asp-action="SaveCartItem">
         <input type="hidden" name="packageId" value="@Model.Package.PackageId" />
         <input type="hidden" name="numTravelers" value="@Model.NumTravelers" />
         <input type="hidden" name="tripTypeId" value="@Model.TripTypeId" />
-        <button type="submit" class="btn btn-secondary">Save to Cart</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary ">Save to Cart</button>
+        </div>
+        
     </form>
 </div>

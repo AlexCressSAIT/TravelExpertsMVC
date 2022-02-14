@@ -165,6 +165,10 @@ namespace TravelExperts.Controllers
         public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
             CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
+            DateTime sd = (DateTime)cartItemView.Package.PkgStartDate;
+            DateTime ed = (DateTime)cartItemView.Package.PkgEndDate;
+            ViewBag.Sd = sd.ToString("MMMM dd, yyyy");
+            ViewBag.Ed = ed.ToString("MMMM dd, yyyy");
 
             return View(cartItemView);
         }
