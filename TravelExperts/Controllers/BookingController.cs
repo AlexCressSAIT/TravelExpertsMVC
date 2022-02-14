@@ -102,6 +102,7 @@ namespace TravelExperts.Controllers
                     groupModel.Bookings = groupModel.Bookings.OrderBy(gmb => gmb.BookingId).ToList();
                 });
             });
+
             model.BookingGroup = model.BookingGroup.OrderByDescending(bg => bg.BookingDate).ToList();
             return View(model);
         }
@@ -157,7 +158,7 @@ namespace TravelExperts.Controllers
 
             // Clear the cart
             session.ClearCart();
-
+            ViewBag.Customer = customerId;
             return View();
         }
 
