@@ -77,11 +77,12 @@ namespace TravelExperts.Controllers
         // Handles the post from the register view, add the filled information to database
         // Creates user
         [HttpPost]
-        public IActionResult Register(Customer customer)
+        public async Task<IActionResult> RegisterAsync(Customer customer)
         {
             try
             {
                 CustomerManager.AddCustomer(customer);
+                await Login(customer);
                 return RedirectToAction("Index", "Home");
             }
             catch
