@@ -88,6 +88,7 @@ a {
     color: white;
     border: 1px solid white;
     border-radius: 10px;
+    height:100%;
 }
 
 .navtab:hover {
@@ -101,12 +102,16 @@ a {
 }
 
 .cartHeader{
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 11px 11px 0px 0px;
     background-color: var(--TravelBlue);
 }
 
 .blueRule{
     border: 2px solid var(--TravelBlue);
+}
+
+.logoutOutBtn {
+    background-color: var(--TravelBlue)
 }
 
 /* Sticky footer styles
@@ -158,9 +163,6 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-.btn-placement {
-    margin-top: 40px;
-}
 
 
 @media screen and (max-width: 500px) {
@@ -183,7 +185,7 @@ body {
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .navtab {
         font-size: 18px;
     }
@@ -193,9 +195,14 @@ body {
 
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px){
+    .logoutOutBtn {
+        background-color: var(--TravelBlue);
+        width: 100%;
+    }
     .navtab {
         font-size: 24px;
+        margin-bottom: 5px;
         text-align: center;
     }
     .cartIcon {
@@ -203,6 +210,7 @@ body {
         font-size: 24px;
     }
 }
+
 @media screen and (max-width: 335px) {
     .btn-placement {
         margin-top: 0;

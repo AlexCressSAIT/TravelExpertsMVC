@@ -1,1 +1,9 @@
-﻿<h1>Thank you for booking!</h1>
+﻿
+@{ 
+    ViewData["Title"] = "Thank you!";
+}
+
+<div style="padding-top:36px" class="jumbotron text-center">
+    <h1>Thank you for booking!</h1>
+    <a class="btn btn-primary siteFont" asp-controller="Profile" asp-action="CustomerProfile" asp-route-id="@ViewBag.Customer"> Go to my profile </a>
+</div>

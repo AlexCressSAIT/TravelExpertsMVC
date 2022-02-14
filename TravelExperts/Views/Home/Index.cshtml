@@ -6,17 +6,17 @@
 <br />
 <div class="text-center jumbotron">
     <h1 class="display-4">Welcome to Travel Experts</h1>
-    <p class="siteFont" >Travel the world!</p>
+    <p class="siteFont">Travel the world!</p>
 </div>
-
-<div class="text-center siteFont">
-    <p>New user can register <span><a class="btn btn-primary siteFont">Here</a></span> </p>
-</div>
-
-<div class="text-center siteFont">
-    <p>Returning user can Login <span><a class="btn btn-primary siteFont">Here</a></span> </p>
-</div>
-
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="text-center siteFont">
+        <p>New user can register <span><a class="btn btn-primary siteFont" asp-controller="Account" asp-action="Register">Here</a></span> </p>
+    </div>
+    <div class="text-center siteFont">
+        <p>Returning user can Login <span><a class="btn btn-primary siteFont" asp-controller="Account" asp-action="Login">Here</a></span> </p>
+    </div>
+}
 <div class="text-center siteFont">
     <p>Returning user can order a package <span><a class="btn btn-primary siteFont" asp-controller="Booking" asp-action="Index">Here</a></span></p>
 </div>
