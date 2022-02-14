@@ -34,19 +34,20 @@ Date: 2022-02-12
 <div class="col-12">
     <div class="jumbotron col-md-6 mx-auto">
         <h2>Login</h2>
+        @if (!String.IsNullOrEmpty(ViewBag.LoginError))
+        {
+            <h3 class="text-danger">
+                @ViewBag.LoginError
+            </h3>
+        }
         <hr class="blueRule" />
         <form class="col-md-10" asp-action="Login">
-    @if (!wasLoggedIn)
-    {
-        <input name="ReturnUrl" type="hidden" value="/Cart" />
-    }
-        Context.Session.Remove("LoginErrorMessage");
-    @if (!String.IsNullOrEmpty(ViewBag.LoginError))
-    {
-        <h3 class="text-danger">
-            @ViewBag.LoginError
-        </h3>
-    }
+            @if (!wasLoggedIn)
+            {
+                <input name="ReturnUrl" type="hidden" value="/Cart" />
+                Context.Session.Remove("LoginErrorMessage");
+            }
+            
             <div class="form-group">
                 <label asp-for="CustUsername" class="control-label"></label>
                 <input asp-for="CustUsername" class="form-control" />
