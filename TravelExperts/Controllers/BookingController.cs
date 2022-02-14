@@ -14,6 +14,7 @@ namespace TravelExperts.Controllers
     public class BookingController : Controller
     {
         // GET: BookingController
+        [Route("{controller}")]
         public ActionResult Index()
         {
             // Create an anonymous 
@@ -52,12 +53,57 @@ namespace TravelExperts.Controllers
             return new string[] { };
         }
 
-        // GET: BookingController/Details/5
+        // GET: /Booking/4
+        [HttpGet]
+        [Route("{controller}/{action}/{id}")]
         public ActionResult ViewBookings(int id)
         {
-            ViewBag.Customer = CustomerManager.GetCustomer(id);
-            List<Booking> bookings = BookingManager.GetCustomerBookings(id).OrderByDescending(b => b.BookingDate).ToList();
-            return View(bookings);
+            int loggedInId = HttpContext.Session.GetInt32("CurrentCustomer") ?? 0;
+
+            if (loggedInId == 0)
+            {
+                HttpContext.Session.SetObject<string>("LoginErrorMessage", "You must log in to view your bookings.");
+                return RedirectToAction("Login", "Account");
+            }
+
+            ViewBag.CustomerId = loggedInId;
+            /*List<Booking> bookings = BookingManager.GetCustomerBookings(id).OrderByDescending(b => b.BookingDate).ToList();*/
+            
+            TravelExpertsContext db = new TravelExpertsContext();
+            
+            // Get a list of all bookings for a customer, grouped by booking number
+            List<List<Booking>> bookingGroups = BookingManager.GetGroupedPackageBookingsByCustomerId(loggedInId, db);
+            
+            // View model
+            PackageBookingGroupViewModel model = new PackageBookingGroupViewModel();
+
+            // Loop through the groups and bookings and build the view model
+            bookingGroups.ForEach(bg =>
+            {
+                // New group (all bookings of the same booking number have the same booking date)
+                PackageBookingGroupModel groupModel = new PackageBookingGroupModel
+                {
+                    BookingDate = bg[0].BookingDate     // just use the booking date from the first item
+                };
+
+                // Save the groupModel to the view
+                model.BookingGroup.Add(groupModel);
+
+                // loop through the booking list and create package booking models
+                bg.ForEach(b =>
+                {
+                    groupModel.Bookings.Add(new PackageBookingModel
+                    {
+                        Package = PackageManager.GetPackageById((int)b.PackageId),
+                        TravelerCount = (int)b.TravelerCount,
+                        TripTypeName = b.TripTypeId == null ? null : TripTypeManager.GetTripTypeNameById(b.TripTypeId, db),
+                        BookingId = b.BookingId
+                    });
+                    groupModel.Bookings = groupModel.Bookings.OrderBy(gmb => gmb.BookingId).ToList();
+                });
+            });
+            model.BookingGroup = model.BookingGroup.OrderByDescending(bg => bg.BookingDate).ToList();
+            return View(model);
         }
 
         [HttpGet]
@@ -78,7 +124,7 @@ namespace TravelExperts.Controllers
 
             if (customerId < 1)
             {
-                HttpContext.Session.SetObject<bool>("CustomerLoggedIn", false);
+                HttpContext.Session.SetObject<string>("LoginErrorMessage", "You must be logged in to book vacation packages");
                 return RedirectToAction("Login", "Account");
             }
             // Get the current booking session
