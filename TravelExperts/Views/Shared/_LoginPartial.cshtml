@@ -1,4 +1,4 @@
-﻿@{ List<CartItemViewModel> cartItems = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
+@{ List<CartItemViewModel> cartItems = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
 @{ bool CartIsEmpty = (cartItems == null || cartItems.Count == 0) ? true : false; }
 
 <!--
