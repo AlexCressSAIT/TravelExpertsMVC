@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,9 @@ namespace TravelExperts.Controllers
 
             await HttpContext.SignInAsync("Cookies", principal);
 
+            //Set cookies
+            HttpContext.Response.Cookies.Append("CustomerId", loginCustomer.CustomerId.ToString());
+
             if (String.IsNullOrEmpty(TempData["ReturnUrl"].ToString()))
             {
                 return RedirectToAction("Index", "Home");
@@ -60,6 +64,7 @@ namespace TravelExperts.Controllers
             HttpContext.Session.SetInt32("CurrentCustomer", 0);
             await HttpContext.SignOutAsync();
             HttpContext.Session.Clear();
+            HttpContext.Response.Cookies.Delete("CustomerId"); //Expire cookie
             return RedirectToAction("Index", "Home");
         }
 
