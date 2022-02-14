@@ -43,6 +43,14 @@ Date: 2022-02-12
         <h4>@ViewBag.Confirm</h4>
     }
 
+    @if (!String.IsNullOrEmpty(ViewBag.LoginError))
+    {
+        <h3 class="text-danger">
+            @ViewBag.LoginError
+        </h3>
+    }
+
+
     <table class="table homebodytext">
         <tr>
             <td>Username</td>

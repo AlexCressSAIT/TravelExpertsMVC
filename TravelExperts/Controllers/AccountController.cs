@@ -29,6 +29,7 @@ namespace TravelExperts.Controllers
             Customer loginCustomer = CustomerManager.Authenticate(customer.CustUsername, customer.CustPassword);
             if (loginCustomer == null)
             {
+                ViewBag.LoginError = "The username and password do not match.";
                 return View();
             }
 

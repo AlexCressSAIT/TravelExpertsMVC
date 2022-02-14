@@ -21,11 +21,11 @@ namespace TravelExpertsData
         [Key]
         [Display(Name = "Account No.")]
         public int CustomerId { get; set; }
-        [Required(ErrorMessage = "Firstname is required")]
+        [Required(ErrorMessage = "First name is required")]
         [StringLength(25)]
         [Display(Name = "First Name")]
         public string CustFirstName { get; set; }
-        [Required(ErrorMessage = "Lastname is required")]
+        [Required(ErrorMessage = "Last name is required")]
         [StringLength(25)]
         [Display(Name = "Last Name")]
         public string CustLastName { get; set; }
