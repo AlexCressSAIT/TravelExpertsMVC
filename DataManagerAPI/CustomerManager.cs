@@ -49,5 +49,26 @@ namespace DataManagerAPI
             TravelExpertsContext db = new TravelExpertsContext();
             return db.Customers.SingleOrDefault(c => c.CustUsername == username && c.CustPassword == password);
         }
+
+        public static void UpdateCustomer(Customer newCustomer)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            Customer oldCustomer = db.Customers.Find(newCustomer.CustomerId);
+
+            oldCustomer.CustFirstName = newCustomer.CustFirstName;
+            oldCustomer.CustLastName = newCustomer.CustLastName;
+            oldCustomer.CustUsername = newCustomer.CustUsername;
+            oldCustomer.CustAddress = newCustomer.CustAddress;
+            oldCustomer.CustCity = newCustomer.CustCity;
+            oldCustomer.CustProv = newCustomer.CustProv;
+            oldCustomer.CustPostal = newCustomer.CustPostal;
+            oldCustomer.CustCountry = newCustomer.CustCountry;
+            oldCustomer.CustHomePhone = newCustomer.CustHomePhone;
+            oldCustomer.CustBusPhone = newCustomer.CustBusPhone;
+            oldCustomer.CustEmail = newCustomer.CustEmail;
+
+            db.Customers.Update(oldCustomer);
+            db.SaveChanges();
+        }
     }
 }

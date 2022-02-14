@@ -20,60 +20,64 @@
         </div>
     </div>
 
-    <div class=" col-lg-8 jumbotron">
+    <div style="padding-bottom: 36px" class=" col-lg-8 jumbotron">
         <div>
             <h3 style="margin-left:10px">Bookings</h3>
             <hr style="background-color: var(--TravelBlue)" />
         </div>
 
         @foreach (var bookingGroup in Model.BookingGroup)
-        {
-            <hr class="mx-5" />
+         {
+         <div style="padding-top:36px; padding-bottom:36px" class="jumbotron">
+        @foreach (var booking in bookingGroup.Bookings)
+         {
+            <h3>@booking.Package.PkgName</h3>
+            <div class="font-italic">&quot; @booking.Package.PkgDesc &quot;</div>
+            <dl class="row siteFont">
+                <dt class="offset-sm-1 col-sm-4">
+                    Guests
+                </dt>
+                <dd class="col-sm-7">
+                    @booking.TravelerCount
+                </dd>
+
+                @if (booking.TripTypeName != null)
+                {
+                    <dt class="offset-sm-1 col-sm-4">
+                        Travel Type
+                    </dt>
+                    <dd class="col-sm-7">
+                        @booking.TripTypeName
+                    </dd>
+                }
+
+                <dt class="offset-sm-1 col-sm-4">
+                    Duration
+                </dt>
+                <dd class="col-sm-7">
+                    @(((TimeSpan)(booking.Package.PkgEndDate - booking.Package.PkgStartDate)).Days) days
+                </dd>
+                <dt class="offset-sm-1 col-sm-4">
+                    Total Price
+                </dt>
+                <dd class="col-sm-7">
+                    @((booking.Package.PkgBasePrice * booking.TravelerCount).ToString("c"))
+                </dd>
+            </dl>
+            }
+             @{
+                 DateTime bd = (DateTime)bookingGroup.BookingDate;
+              }
+            <hr class="blueRule" />
             <dl class="row siteFont">
                 <dt class="offset-sm-1 col-sm-4">
                     Booking Date:
                 </dt>
                 <dd class="col-sm-7">
-                    @bookingGroup.BookingDate
+                    @bd.ToString("MMMM dd, yyyy")
                 </dd>
             </dl>
-            @foreach (var booking in bookingGroup.Bookings)
-            {
-                <h3>@booking.Package.PkgName</h3>
-                <div class="font-italic">&quot; @booking.Package.PkgDesc &quot;</div>
-                <dl class="row siteFont">
-                    <dt class="offset-sm-1 col-sm-4">
-                        Guests
-                    </dt>
-                    <dd class="col-sm-7">
-                        @booking.TravelerCount
-                    </dd>
-
-                    @if (booking.TripTypeName != null)
-                    {
-                        <dt class="offset-sm-1 col-sm-4">
-                            Travel Type
-                        </dt>
-                        <dd class="col-sm-7">
-                            @booking.TripTypeName
-                        </dd>
-                    }
-
-                    <dt class="offset-sm-1 col-sm-4">
-                        Duration
-                    </dt>
-                    <dd class="col-sm-7">
-                        @(((TimeSpan)(booking.Package.PkgEndDate - booking.Package.PkgStartDate)).Days) days
-                    </dd>
-                    <dt class="offset-sm-1 col-sm-4">
-                        Total Price
-                    </dt>
-                    <dd class="col-sm-7">
-                        @((booking.Package.PkgBasePrice * booking.TravelerCount).ToString("c"))
-                    </dd>
-                </dl>
-            }
-
+        </div>
         }
         @* <dl class="row siteFont">
 

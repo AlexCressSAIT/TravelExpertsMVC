@@ -102,6 +102,7 @@ namespace TravelExperts.Controllers
                     groupModel.Bookings = groupModel.Bookings.OrderBy(gmb => gmb.BookingId).ToList();
                 });
             });
+
             model.BookingGroup = model.BookingGroup.OrderByDescending(bg => bg.BookingDate).ToList();
             return View(model);
         }
@@ -157,7 +158,7 @@ namespace TravelExperts.Controllers
 
             // Clear the cart
             session.ClearCart();
-
+            ViewBag.Customer = customerId;
             return View();
         }
 
@@ -165,6 +166,10 @@ namespace TravelExperts.Controllers
         public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
             CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
+            DateTime sd = (DateTime)cartItemView.Package.PkgStartDate;
+            DateTime ed = (DateTime)cartItemView.Package.PkgEndDate;
+            ViewBag.Sd = sd.ToString("MMMM dd, yyyy");
+            ViewBag.Ed = ed.ToString("MMMM dd, yyyy");
 
             return View(cartItemView);
         }
