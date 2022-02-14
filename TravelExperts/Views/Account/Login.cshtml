@@ -10,12 +10,13 @@ Date: 2022-02-12
 -->
 
 @{ 
-    bool wasLoggedIn = !Context.Session.Keys.Contains("CustomerLoggedIn");
+    bool wasLoggedIn = !Context.Session.Keys.Contains("LoginErrorMessage");
+    string loginErrorMsg = !wasLoggedIn ? Context.Session.GetObject<string>("LoginErrorMessage") : "";
 }
 @if (!wasLoggedIn)
 {
-<div class="alert alert-warning text-dark" id="login-warning">
-    You must be logged in to book your package(s)!
+<div class="alert alert-warning text-dark" style='@(loginErrorMsg == "" ? "display: none" : "display: inherit")' id="login-warning">
+    @loginErrorMsg
     <script>
         function fadeOut(query) {
             const elem = document.querySelector(query);
@@ -34,7 +35,7 @@ Date: 2022-02-12
     @if (!wasLoggedIn)
     {
         <input name="ReturnUrl" type="hidden" value="/Cart" />
-        Context.Session.Remove("CustomerLoggedIn");
+        Context.Session.Remove("LoginErrorMessage");
     }
     <h3>Login</h3>
     @if (ViewBag.Confirm != null)

@@ -1,80 +1,160 @@
-﻿@model IEnumerable<TravelExpertsData.Booking>
+﻿@model PackageBookingGroupViewModel
 
 @{
     ViewData["Title"] = "ViewBookings";
+    int customerId = @ViewBag.CustomerId;
 }
 
-<h1>Bookings for @ViewBag.Customer.CustFirstName @ViewBag.Customer.CustLastName</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TravelerCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TripTypeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PackageId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="accordion">
-        @foreach (var item in Model)
-        {
-            <div class="card">
-                <tr class="btn card-header" data-toggle="collapse" onclick="window.location.href = '#collapse-@item.BookingId'">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookingId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookingDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookingNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TravelerCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TripTypeId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PackageId)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-                <tr id="collapse-@item.BookingId" class="collapse hide" data-parent="#accordion">
-                    <td class="card-body">
-                        Booking details go here
-                    </td>
-                </tr>
-
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-3">
+        <div class="row">
+            <div style=" width: 175px; height: 175px; padding-top:35px" class="text-center jumbotron mx-auto pb-1">
+                <i style="font-size:96px;" class="fas fa-user"></i>
             </div>
+            <div class="mx-auto">
+                <a asp-controller="Profile" asp-action="CustomerProfile" asp-route-id="@customerId" style=" width: 150px; height: 40px" class="btn btn-primary">Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-lg-8 jumbotron">
+        <div>
+            <h3 style="margin-left:10px">Bookings</h3>
+            <hr style="background-color: var(--TravelBlue)" />
+        </div>
+
+        @foreach (var bookingGroup in Model.BookingGroup)
+        {
+            <hr class="mx-5" style="border-top: 1px solid white" />
+            <dl class="row siteFont">
+                <dt class="offset-sm-1 col-sm-4">
+                    Booking Date:
+                </dt>
+                <dd class="col-sm-7">
+                    @bookingGroup.BookingDate
+                </dd>
+            </dl>
+            @foreach (var booking in bookingGroup.Bookings)
+            {
+                <h3>@booking.Package.PkgName</h3>
+                <div class="font-italic">&quot; @booking.Package.PkgDesc &quot;</div>
+                <dl class="row siteFont">
+                    <dt class="offset-sm-1 col-sm-4">
+                        Guests
+                    </dt>
+                    <dd class="col-sm-7">
+                        @booking.TravelerCount
+                    </dd>
+
+                    @if (booking.TripTypeName != null)
+                    {
+                        <dt class="offset-sm-1 col-sm-4">
+                            Travel Type
+                        </dt>
+                        <dd class="col-sm-7">
+                            @booking.TripTypeName
+                        </dd>
+                    }
+
+                    <dt class="offset-sm-1 col-sm-4">
+                        Duration
+                    </dt>
+                    <dd class="col-sm-7">
+                        @(((TimeSpan)(booking.Package.PkgEndDate - booking.Package.PkgStartDate)).Days) days
+                    </dd>
+                    <dt class="offset-sm-1 col-sm-4">
+                        Total Price
+                    </dt>
+                    <dd class="col-sm-7">
+                        @((booking.Package.PkgBasePrice * booking.TravelerCount).ToString("c"))
+                    </dd>
+                </dl>
+            }
+
         }
-    </tbody>
-</table>
+        @* <dl class="row siteFont">
+
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustomerId)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustFirstName)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustFirstName)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustLastName)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustLastName)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustUsername)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustUsername)
+            </dd>
+        </dl>
+        <div>
+            <h3 style="margin-left:10px">Contact Information</h3>
+            <hr style="background-color: var(--TravelBlue)" />
+        </div>
+        <dl class="row siteFont">
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustAddress)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustAddress)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustCity)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustCity)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustProv)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustProv)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustPostal)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustPostal)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustCountry)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustCountry)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustHomePhone)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustHomePhone)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustBusPhone)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustBusPhone)
+            </dd>
+            <dt class="offset-sm-1 col-sm-4">
+                @Html.DisplayNameFor(model => model.CustEmail)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.CustEmail)
+            </dd>
+        </dl>*@
+    </div>
+</div>

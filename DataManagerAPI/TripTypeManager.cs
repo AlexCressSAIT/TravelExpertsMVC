@@ -9,11 +9,17 @@ namespace DataManagerAPI
 {
     public static class TripTypeManager
     {
-        public static List<TripType> GetTripTypes()
+        public static List<TripType> GetTripTypes(TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
+            db ??= new TravelExpertsContext();
 
             return db.TripTypes.OrderBy(tt => tt.Ttname).ToList();
+        }
+
+        public static string GetTripTypeNameById(string id, TravelExpertsContext db = null)
+        {
+            db ??= new TravelExpertsContext();
+            return db.TripTypes.SingleOrDefault(tt => tt.TripTypeId == id).Ttname;
         }
     }
 }
