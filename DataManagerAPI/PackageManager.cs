@@ -16,9 +16,9 @@ namespace DataManagerAPI
             return db.Packages.ToList();
         }
 
-        public static Package GetPackageById(int packageId)
+        public static Package GetPackageById(int packageId, TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
+            db ??= new TravelExpertsContext();
             return db.Packages.SingleOrDefault(p => p.PackageId == packageId);
         }
 

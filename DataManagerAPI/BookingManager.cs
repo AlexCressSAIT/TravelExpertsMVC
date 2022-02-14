@@ -29,5 +29,15 @@ namespace DataManagerAPI
             TravelExpertsContext db = new TravelExpertsContext();
             bookings.ForEach(b => AddBooking(b, db));
         }
+
+        // ref: https://stackoverflow.com/a/9231743/7953750
+        public static List<List<Booking>> GetGroupedPackageBookingsByCustomerId(int customerId, TravelExpertsContext db = null)
+        {
+            db ??= new TravelExpertsContext();
+            List<List<Booking>> bookings = db.Bookings.Where(b => b.CustomerId == customerId && b.PackageId != null)
+                .ToList().GroupBy(g => g.BookingNo).Select(g => g.ToList()).ToList();
+
+            return bookings;
+        }
     }
 }
