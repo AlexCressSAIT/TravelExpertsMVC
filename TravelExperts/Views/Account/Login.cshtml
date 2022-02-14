@@ -31,47 +31,35 @@ Date: 2022-02-12
 </div>
 }
 
-<form asp-action="Login">
-    @if (!wasLoggedIn)
-    {
-        <input name="ReturnUrl" type="hidden" value="/Cart" />
-        Context.Session.Remove("LoginErrorMessage");
-    }
-    <h3>Login</h3>
-    @if (ViewBag.Confirm != null)
-    {
-        <h4>@ViewBag.Confirm</h4>
-    }
-
-    @if (!String.IsNullOrEmpty(ViewBag.LoginError))
-    {
-        <h3 class="text-danger">
-            @ViewBag.LoginError
-        </h3>
-    }
-
-
-    <table class="table homebodytext">
-        <tr>
-            <td>Username</td>
-        </tr>
-        <tr>
-            <td>
-                <input type="text" asp-for="CustUsername" />
-            </td>
-        </tr>
-        <tr>
-            <td>Password</td>
-        </tr>
-        <tr>
-            <td>
-                <input type="password" asp-for="CustPassword" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+<div class="col-12">
+    <div class="jumbotron col-md-6 mx-auto">
+        <h2>Login</h2>
+        @if (!String.IsNullOrEmpty(ViewBag.LoginError))
+        {
+            <h3 class="text-danger">
+                @ViewBag.LoginError
+            </h3>
+        }
+        <hr class="blueRule" />
+        <form class="col-md-10" asp-action="Login">
+            @if (!wasLoggedIn)
+            {
+                <input name="ReturnUrl" type="hidden" value="/Cart" />
+                Context.Session.Remove("LoginErrorMessage");
+            }
+            
+            <div class="form-group">
+                <label asp-for="CustUsername" class="control-label"></label>
+                <input asp-for="CustUsername" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CustPassword" class="control-label"></label>
+                <input type="password" asp-for="CustPassword" class="form-control" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Log in" class="btn btn-primary homebodytext" />
-            </td>
-        </tr>
-    </table>
-</form>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
