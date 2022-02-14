@@ -121,7 +121,10 @@ namespace TravelExperts.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
-            int customerId = HttpContext.Session.GetInt32("CurrentCustomer") ?? 0;
+            string id = "";
+            HttpContext.Request.Cookies.TryGetValue("CustomerId", out id);
+
+            int customerId = int.Parse(id);
 
             if (customerId < 1)
             {
