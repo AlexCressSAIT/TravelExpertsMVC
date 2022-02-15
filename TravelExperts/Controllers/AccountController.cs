@@ -51,13 +51,14 @@ namespace TravelExperts.Controllers
             //Set cookies
             HttpContext.Response.Cookies.Append("CustomerId", loginCustomer.CustomerId.ToString());
 
-            if (String.IsNullOrEmpty(TempData["ReturnUrl"].ToString()))
+            string returnUrl = TempData["ReturnUrl"] != null ? TempData["ReturnUrl"].ToString() : null;
+            if (String.IsNullOrEmpty(returnUrl))
             {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                return Redirect(TempData["returnUrl"].ToString());
+                return Redirect(returnUrl);
             }
         }
         [Authorize]
