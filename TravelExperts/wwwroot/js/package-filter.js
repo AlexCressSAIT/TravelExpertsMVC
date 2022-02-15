@@ -7,7 +7,12 @@
 
     function initSelectList() {
         document.querySelector('#selectedPackage').addEventListener('change', (e) => {
-            getSelectedPackage(e.target.value);
+            if (e.target.value == 0) {
+                $('#pkgInfo').css('display', 'none');
+            } else {
+                $('#pkgInfo').show();
+                getSelectedPackage(e.target.value);
+            }
         });
     }
 
@@ -22,7 +27,15 @@
     }
 
     function displayPkgInfo(data) {
-        $('#pkgInfo').css('display', 'inherit');
+        console.log(data);
+        if ('errorMessage' in data) {
+            $('#pkgInfo').prepend('<h3 id="errorMsg">Unable to retrieve package info.</h3>');
+            $('#pkgInfoContent').hide();
+            return;
+        } else {
+            $('#errorMsg').remove();
+        }
+        $('#pkgInfoContent').show();
         $('#selectedPackageId').val(data['packageId']);
         for (let key in data) {
             var output = data[key];

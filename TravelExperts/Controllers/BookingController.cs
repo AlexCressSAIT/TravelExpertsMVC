@@ -35,9 +35,16 @@ namespace TravelExperts.Controllers
         }
 
         [Route("/api/package/{packageId?}")]
-        public Package GetPackage(int packageId)
+        public Object GetPackage(int packageId = 0)
         {
-            return PackageManager.GetPackageById(packageId);
+            Package pkg;
+            if (packageId == 0 || 
+                (pkg = PackageManager.GetPackageById(packageId)) == null
+                )
+                return new { errorMessage = "Unable to retrieve package." };
+
+            
+            return pkg;
         }
 
         [Route("/api/package/gallery/{packageId?}")]
