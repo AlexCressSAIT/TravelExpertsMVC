@@ -9,9 +9,9 @@ namespace DataManagerAPI
 {
     public static class PackageProductSuppliersManager
     {
-        public static List<ProductsSupplier> GetProductSuppliers(Package package)
+        public static List<ProductsSupplier> GetProductSuppliers(Package package, TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
+            db ??= new TravelExpertsContext();
             return db.PackagesProductsSuppliers
                 .Join(db.ProductsSuppliers,
                 pps => pps.ProductSupplierId,

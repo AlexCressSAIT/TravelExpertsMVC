@@ -9,9 +9,9 @@ namespace DataManagerAPI
 {
     public static class SupplierManager
     {
-        public static Supplier GetSupplier(ProductsSupplier productsSupplier)
+        public static Supplier GetSupplier(ProductsSupplier productsSupplier, TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
+            db ??= new TravelExpertsContext();
             return db.Suppliers.SingleOrDefault(s => s.SupplierId == productsSupplier.SupplierId);
         }
     }

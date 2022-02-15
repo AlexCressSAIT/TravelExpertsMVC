@@ -35,9 +35,16 @@ namespace TravelExperts.Controllers
         }
 
         [Route("/api/package/{packageId?}")]
-        public Package GetPackage(int packageId)
+        public Object GetPackage(int packageId = 0)
         {
-            return PackageManager.GetPackageById(packageId);
+            Package pkg;
+            if (packageId == 0 || 
+                (pkg = PackageManager.GetPackageById(packageId)) == null
+                )
+                return new { errorMessage = "Unable to retrieve package." };
+
+            
+            return pkg;
         }
 
         [Route("/api/package/gallery/{packageId?}")]
@@ -52,6 +59,28 @@ namespace TravelExperts.Controllers
             }
 
             return new string[] { };
+        }
+
+        [Route("/api/package/products/{packageId?}")]
+        public List<PackageProductsSuppliersView> GetPackageProductsSuppliers(int packageId)
+        {
+            TravelExpertsContext ctx = new TravelExpertsContext();
+            Package pkg = PackageManager.GetPackageById(packageId, ctx);
+            List<ProductsSupplier> productsSuppliers = PackageProductSuppliersManager
+                .GetProductSuppliers(pkg, ctx);
+            List<PackageProductsSuppliersView> model = new List<PackageProductsSuppliersView>();
+            productsSuppliers.ForEach(ps =>
+            {
+                Product p = ProductManager.GetProduct(ps);
+                Supplier s = SupplierManager.GetSupplier(ps);
+                model.Add(new PackageProductsSuppliersView
+                {
+                    ProductName = p.ProdName,
+                    SupplierName = s.SupName
+                });
+            });
+
+            return model.OrderBy(m => m.ProductName).ToList();
         }
 
         // GET: /Booking/4
