@@ -40,6 +40,11 @@ namespace DataManagerAPI
         public static Customer AddCustomer(Customer customer)
         {
             TravelExpertsContext db = new TravelExpertsContext();
+            //Format for DB
+            customer.CustHomePhone = FormatPhone(customer.CustHomePhone);
+            customer.CustBusPhone = FormatPhone(customer.CustBusPhone);
+            customer.CustPostal = FormatPostal(customer.CustPostal);
+
             var customerContext = db.Customers.Add(customer);
             db.SaveChanges();
             return customerContext.Entity;
@@ -62,14 +67,33 @@ namespace DataManagerAPI
             oldCustomer.CustAddress = newCustomer.CustAddress;
             oldCustomer.CustCity = newCustomer.CustCity;
             oldCustomer.CustProv = newCustomer.CustProv;
-            oldCustomer.CustPostal = newCustomer.CustPostal;
+            oldCustomer.CustPostal = FormatPostal(newCustomer.CustPostal);
             oldCustomer.CustCountry = newCustomer.CustCountry;
-            oldCustomer.CustHomePhone = newCustomer.CustHomePhone;
-            oldCustomer.CustBusPhone = newCustomer.CustBusPhone;
+            oldCustomer.CustHomePhone = FormatPhone(newCustomer.CustHomePhone);
+            oldCustomer.CustBusPhone = FormatPhone(newCustomer.CustBusPhone);
             oldCustomer.CustEmail = newCustomer.CustEmail;
 
             db.Customers.Update(oldCustomer);
             db.SaveChanges();
+        }
+
+        private static string FormatPhone(string phone)
+        {
+            if (String.IsNullOrEmpty(phone))
+            {
+                return phone;
+            }
+            return phone.Replace("(", "").Replace(")", "").Replace("-", "");
+        }
+
+        private static string FormatPostal(string postal)
+        {
+            if (!String.IsNullOrEmpty(postal) && postal.Length == 6)
+            {
+                postal = postal.Insert(3, " ");
+            }
+            
+            return postal;
         }
     }
 }
