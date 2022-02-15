@@ -50,7 +50,7 @@
 
 
 
-@if (!User.Identity.IsAuthenticated)
+@*@if (!User.Identity.IsAuthenticated)
 {
     <div class="text-center siteFont">
         <p>New user can register <span><a class="btn btn-primary siteFont" asp-controller="Account" asp-action="Register">Here</a></span> </p>
@@ -62,7 +62,7 @@
 <div class="text-center siteFont">
     <p>Returning user can order a package <span><a class="btn btn-primary siteFont" asp-controller="Booking" asp-action="Index">Here</a></span></p>
 </div>
-<br />
+<br />*@
 
 <div class="album py-5">
     <div class="container">
