@@ -83,7 +83,7 @@ namespace TravelExperts.Controllers
         {
             try
             {
-                CustomerManager.AddCustomer(customer);
+                Customer newCustomer = CustomerManager.AddCustomer(customer);
                 await Login(customer);
                 return RedirectToAction("Index", "Home");
             }
