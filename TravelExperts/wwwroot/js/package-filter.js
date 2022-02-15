@@ -19,6 +19,7 @@
         let packageId = $('#selectedPackage').val();
 
         if (this.toggled) {
+            toggleMoreInfo.scroll = window.scrollY;
             $('#btnMoreInfo > span').css({ 'padding-right': '0.15em','line-height': '0.5','writing-mode': 'vertical-rl', 'text-orientation': 'mixed' });
             if (!cache.has(packageId)) {
                 $.getJSON(`/api/package/products/${packageId}`, { format: 'json' })
@@ -38,6 +39,7 @@
             $('#btnMoreInfo > span').css({ 'padding-right': '', 'line-height': '','writing-mode': 'horizontal-tb', 'text-orientation': '' });
             $('#moreInfo').hide();
             $('#moreInfo').empty();
+            window.scrollTo(0, toggleMoreInfo.scroll);
         }
     }
 
@@ -67,6 +69,7 @@
                  `)
             });
         }
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     function initSelectList() {
@@ -83,6 +86,8 @@
     function getSelectedPackage(pkgId) {
         $('#moreInfo').empty();
         $('#moreInfo').hide();
+        $('#btnMoreInfo > span').css({ 'padding-right': '', 'line-height': '', 'writing-mode': 'horizontal-tb', 'text-orientation': '' });
+        toggleMoreInfo.toggled = false;
         // Request the package information
         $.getJSON(`/api/package/${pkgId}`, { format: 'json' })
             .done(displayPkgInfo);
