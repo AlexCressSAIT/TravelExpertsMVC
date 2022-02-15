@@ -37,11 +37,12 @@ namespace DataManagerAPI
         /// </summary>
         /// <param name="customer"></param>
         /// <author>Daniel Palmer</author>
-        public static void AddCustomer(Customer customer)
+        public static Customer AddCustomer(Customer customer)
         {
             TravelExpertsContext db = new TravelExpertsContext();
-            db.Customers.Add(customer);
+            var customerContext = db.Customers.Add(customer);
             db.SaveChanges();
+            return customerContext.Entity;
         }
 
         public static Customer Authenticate(string username, string password)
