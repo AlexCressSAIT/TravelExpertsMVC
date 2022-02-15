@@ -25,8 +25,20 @@
         $('#pkgInfo').css('display', 'inherit');
         $('#selectedPackageId').val(data['packageId']);
         for (let key in data) {
+            var output = data[key];
+            if (key === 'pkgStartDate' || key === 'pkgEndDate') {
+                output = new Date(data[key]).toLocaleDateString("en-US");
+            }
+            if (key === 'pkgBasePrice') {
+                var f = Intl.NumberFormat('en-US',
+                    {
+                        style: "currency",
+                        currency: "USD",
+                    });
+                output = f.format(data[key]);
+            }
             try {
-                $(`#${key}`).html(data[key]);
+                $(`#${key}`).html(output);
             } catch { }
         }
     }
