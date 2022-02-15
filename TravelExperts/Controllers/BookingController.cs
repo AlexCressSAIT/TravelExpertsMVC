@@ -18,12 +18,18 @@ namespace TravelExperts.Controllers
         [Route("{controller}")]
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [Route("/api/package/listoptions")]
+        public Object GetPackageListOptions()
+        {
             // Create an anonymous 
             var packages = new[]
             {
                 new
                 {
-                    Value = 0, Text = ""
+                    Value = 0, Text = "&lt;Select a package&gt;"
                 }
             }.ToList();
             packages.AddRange(
@@ -31,7 +37,7 @@ namespace TravelExperts.Controllers
                 .Select(p => new { Value = p.PackageId, Text = p.PkgName })
                 .OrderBy(p => p.Text)
                 );
-            return View(packages);
+            return packages;
         }
 
         [Route("/api/package/{packageId?}")]

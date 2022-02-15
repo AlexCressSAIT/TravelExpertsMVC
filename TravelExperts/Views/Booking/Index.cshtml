@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@*@model dynamic*@
 @{
     ViewData["Title"] = "Book a Vacation Package";
 }
@@ -6,7 +6,7 @@
 
 <form class="row form-group text-center siteFont" asp-controller="Booking" asp-action="BookPackage">
     <label class="col-12 text-center col-md-auto col-form-label" for="selectedPackage">Select a vacation package:</label>
-    <select style="color:black" class="col-8 mx-auto mx-sm-0 col-md-3 form-control siteFont" id="selectedPackage" name="selectedPackageId" asp-items='@new SelectList(Model, "Value", "Text")'></select>
+    <select style="color:black" class="col-8 mx-auto mx-sm-0 col-md-3 form-control siteFont" id="selectedPackage" name="selectedPackageId" @*asp-items='@new SelectList(Model, "Value", "Text")'*@></select>
 </form>
 
 <div id="pkgInfo" style="display: none; background-color: rgba(0, 0, 0, 0); border: 0" class="row card">

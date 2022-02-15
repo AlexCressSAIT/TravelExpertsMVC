@@ -73,6 +73,7 @@
     }
 
     function initSelectList() {
+        loadSelectOptions();
         document.querySelector('#selectedPackage').addEventListener('change', (e) => {
             if (e.target.value == 0) {
                 $('#pkgInfo').css('display', 'none');
@@ -81,6 +82,21 @@
                 getSelectedPackage(e.target.value);
             }
         });
+    }
+
+    function loadSelectOptions() {
+        $('#selectedPackage').append('<option>Loading...</option>');
+        $.getJSON(`/api/package/listoptions`, { format: 'json' })
+            .done((data) => {
+                $('#selectedPackage').empty();
+                if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        $('#selectedPackage').append(`
+                            <option value=${item.value}>${item.text}</option>
+                        `)
+                    });
+                }
+            });
     }
 
     function getSelectedPackage(pkgId) {
