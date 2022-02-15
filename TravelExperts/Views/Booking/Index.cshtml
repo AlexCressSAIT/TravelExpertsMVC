@@ -9,8 +9,8 @@
     <select style="color:black" class="col-8 mx-auto mx-sm-0 col-md-3 form-control siteFont" id="selectedPackage" name="selectedPackageId" asp-items='@new SelectList(Model, "Value", "Text")'></select>
 </form>
 
-<div id="pkgInfo" style="display: none" class="row">
-    <div style="padding-top:36px" class="card jumbotron text-center" id="pkgInfoContent">
+<div id="pkgInfo" style="display: none; background-color: rgba(0, 0, 0, 0)" class="row card">
+    <div style="padding-top:36px; border: 0; background-color: rgba(0, 0, 0, 0)" class="jumbotron text-center" id="pkgInfoContent">
         <h1 id="pkgName"></h1>
         <hr class="blueRule" />
         <h3 id="pkgDesc"></h3>
@@ -19,31 +19,33 @@
         </div>
 
         <div class="siteFont" id="pkgBasePrice"></div>
+    </div>
+    <br />
 
-        <br />
+    @* Image carousel *@
+    <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
+        <div style="border-radius:10px" class="carousel-inner"></div>
+        <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+    <br />
+    <br />
+    <form class="col-6 mx-auto mt-3" asp-controller="Cart" asp-action="AddItem">
+        <input id="selectedPackageId" name="packageId" type="hidden" />
 
-        @* Image carousel *@
-        <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
-            <div style="border-radius:10px" class="carousel-inner"></div>
-            <a class="carousel-control-prev" href="#carousel" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#carousel" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
+        <div class="row justify-content-md-center">
+            <button class="btn btn-primary siteFont col-5" type="submit">Add to Cart</button>
+            <a id="btnMoreInfo" class="col-5 btn btn-primary siteFont ml-2">More info <span>&gt;</span></a>
         </div>
-        <br />
-        <br />
-        <form asp-controller="Cart" asp-action="AddItem">
-            <input id="selectedPackageId" name="packageId" type="hidden" />
-            <button class="btn btn-primary siteFont" type="submit">Add to Cart</button>
-            <a id="btnMoreInfo" class="col-3 btn btn-primary siteFont">More info <span>&gt;</span></a>
-        </form>
-        <br />
-        <br />
-        <div id="moreInfo" class="siteFont container">
+    </form>
+    <br />
+    <br />
+    <div id="moreInfo" class="siteFont container">
             
-        </div>
     </div>
 </div>
 <br />
