@@ -118,6 +118,10 @@ a {
 
 }
 
+.text-danger {
+    color: #FAA0A0 !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
