@@ -1,5 +1,6 @@
 using DataManagerAPI;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -59,6 +60,7 @@ namespace TravelExperts.Controllers
                 return Redirect(TempData["returnUrl"].ToString());
             }
         }
+        [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
             HttpContext.Session.SetInt32("CurrentCustomer", 0);

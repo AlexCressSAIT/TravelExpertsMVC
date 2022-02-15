@@ -1,4 +1,5 @@
 ﻿using DataManagerAPI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -118,6 +119,7 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Checkout()
         {
@@ -126,6 +128,7 @@ namespace TravelExperts.Controllers
 
             int customerId = int.Parse(id);
 
+            //This check should now be redundant due to Authorize -Alex
             if (customerId < 1)
             {
                 HttpContext.Session.SetObject<string>("LoginErrorMessage", "You must be logged in to book vacation packages");

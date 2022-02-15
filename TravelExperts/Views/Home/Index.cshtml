@@ -63,3 +63,49 @@
     <p>Returning user can order a package <span><a class="btn btn-primary siteFont" asp-controller="Booking" asp-action="Index">Here</a></span></p>
 </div>
 <br />
+
+<div class="album py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow thumbnailBox">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="~/media/images/thumbnails/handshake.jpg" data-holder-rendered="true">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="text-center">Sign Up</h4>
+                        <p class="card-text text-center">Sign up for a free account to begin booking today. An Agent will be assigned to you to assist with your travel inquiries!</p>
+                        <div class="text-center mt-auto">
+                            <button type="button" class="btn btn-success btn-outline-secondary" onclick="location.href='@Url.Action("Register", "Account")'">Sign Up Today!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow thumbnailBox">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="~/media/images/thumbnails/booking.jpg" data-holder-rendered="true">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="text-center">Packages</h4>
+                        <p class="card-text text-center">Browse from our many 4 vacation packages that will astound you! You won't even believe what #3 is!</p>
+                        <div class="text-center mt-auto">
+                            <button type="button" class="btn btn-success btn-outline-secondary"onclick="location.href='@Url.Action("Index", "Booking")'">Browse Packages</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow thumbnailBox">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="~/media/images/thumbnails/phone.jpg" data-holder-rendered="true">
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="text-center">Contact</h4>
+                        <p class="card-text text-center">Prefer to speak to a person? We do too! Call us today and speak to one of our Agents!</p>
+                        <div class="text-center mt-auto">
+                            @*Dead link, no contact page in the project.*@
+                            <button type="button" class="btn btn-success btn-outline-secondary">Contact Us</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
