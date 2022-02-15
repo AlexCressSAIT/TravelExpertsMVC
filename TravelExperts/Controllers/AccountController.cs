@@ -1,5 +1,6 @@
 using DataManagerAPI;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -59,27 +60,7 @@ namespace TravelExperts.Controllers
                 return Redirect(TempData["returnUrl"].ToString());
             }
         }
-
-        public async void LoginFromRegister(Customer customer)
-        {
-            Customer loginCustomer = CustomerManager.Authenticate(customer.CustUsername, customer.CustPassword);
-
-            HttpContext.Session.SetInt32("CurrentCustomer", loginCustomer.CustomerId);
-
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, $"{loginCustomer.CustFirstName} {loginCustomer.CustLastName}"),
-                new Claim("UserName", loginCustomer.CustUsername),
-
-            };
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-            ClaimsPrincipal principal = new ClaimsPrincipal(claimsIdentity);
-
-            await HttpContext.SignInAsync("Cookies", principal);
-
-            //Set cookies
-            HttpContext.Response.Cookies.Append("CustomerId", loginCustomer.CustomerId.ToString());
-        }
+        [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
             HttpContext.Session.SetInt32("CurrentCustomer", 0);
@@ -92,7 +73,6 @@ namespace TravelExperts.Controllers
         // Serves the register view
         public IActionResult Register()
         {
-            TempData["ReturnUrl"] = "";
             return View();
         }
 
@@ -104,7 +84,7 @@ namespace TravelExperts.Controllers
             try
             {
                 CustomerManager.AddCustomer(customer);
-                LoginFromRegister(customer);
+                await Login(customer);
                 return RedirectToAction("Index", "Home");
             }
             catch
