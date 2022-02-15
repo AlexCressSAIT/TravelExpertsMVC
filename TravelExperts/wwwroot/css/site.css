@@ -114,6 +114,10 @@ a {
     background-color: var(--TravelBlue)
 }
 
+.cartViewCartIcon{
+
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -208,6 +212,14 @@ body {
     .cartIcon {
         padding-top: 0px;
         font-size: 24px;
+    }
+    .cartViewCartIcon {
+        padding: 0;
+    }
+}
+
+@media (max-width: 576px){
+    .cartViewCartIcon {
     }
 }
 
