@@ -23,9 +23,9 @@ namespace DataManagerAPI
             db.SaveChanges();
         }
 
-        public static Product GetProduct(ProductsSupplier productsSupplier)
+        public static Product GetProduct(ProductsSupplier productsSupplier, TravelExpertsContext db = null)
         {
-            TravelExpertsContext db = new TravelExpertsContext();
+            db ??= new TravelExpertsContext();
             return db.Products.SingleOrDefault(p => p.ProductId == productsSupplier.ProductId);
         }
     }

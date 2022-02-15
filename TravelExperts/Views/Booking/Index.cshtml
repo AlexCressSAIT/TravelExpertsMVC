@@ -12,13 +12,14 @@
 <div id="pkgInfo" style="display: none" class="row">
     <div style="padding-top:36px" class="card jumbotron text-center" id="pkgInfoContent">
         <h1 id="pkgName"></h1>
-        <hr class="blueRule"/>
+        <hr class="blueRule" />
         <h3 id="pkgDesc"></h3>
         <div>
             <span class="siteFont" id="pkgStartDate"></span> - <span class="siteFont" id="pkgEndDate"></span>
         </div>
-        
+
         <div class="siteFont" id="pkgBasePrice"></div>
+
         <br />
 
         @* Image carousel *@
@@ -32,10 +33,17 @@
             </a>
         </div>
         <br />
+        <br />
         <form asp-controller="Cart" asp-action="AddItem">
             <input id="selectedPackageId" name="packageId" type="hidden" />
             <button class="btn btn-primary siteFont" type="submit">Add to Cart</button>
-        </form> 
+            <a id="btnMoreInfo" class="col-3 btn btn-primary siteFont">More info <span>&gt;</span></a>
+        </form>
+        <br />
+        <br />
+        <div id="moreInfo" class="siteFont container">
+            
+        </div>
     </div>
 </div>
 <br />
