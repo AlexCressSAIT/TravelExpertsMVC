@@ -19,7 +19,8 @@ namespace TravelExperts.Controllers
 {
     public class AccountController : Controller
     {
-        // Action returns the 
+        // Action returns the Login View
+        // Author : Daniel Palmer
         public IActionResult Login(string ReturnUrl = "")
         {
             if (ReturnUrl != null)
@@ -28,31 +29,39 @@ namespace TravelExperts.Controllers
             }
             return View();
         }
-
+        // Login Post method that handles Authenticate passed account values
+        // Stores Authenticated account in the session and cookies
+        // Author : Daniel Palmer Alex Cress
         [HttpPost]
         public async Task<IActionResult> Login(Customer customer)
         {
+            // Checks that inputs are filled
             if (ModelState["CustUsername"].Errors.Count > 0 
                 || ModelState["CustPassword"].Errors.Count > 0)
             {
                 ViewBag.LoginError = "Please fill out all fields.";
                 return View();
             }
+            // Authenticates account values
             Customer loginCustomer = CustomerManager.Authenticate(customer.CustUsername, customer.CustPassword);
             if (loginCustomer == null)
             {
                 ViewBag.LoginError = "The username and password do not match.";
                 return View();
             }
-
+            
+            // Loads Authenticated CustomerId into session
             HttpContext.Session.SetInt32("CurrentCustomer", loginCustomer.CustomerId);
 
+            // Creates a claim of customer name
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, $"{loginCustomer.CustFirstName} {loginCustomer.CustLastName}"),
                 new Claim("UserName", loginCustomer.CustUsername),
 
             };
+
+            // Adds claim to cookies
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             ClaimsPrincipal principal = new ClaimsPrincipal(claimsIdentity);
 
@@ -61,6 +70,8 @@ namespace TravelExperts.Controllers
             //Set cookies
             HttpContext.Response.Cookies.Append("CustomerId", loginCustomer.CustomerId.ToString());
 
+            // Redirects to value stored in the TepData["ReturnUrl]
+            // Redirects Home if the value does not exist
             string returnUrl = TempData["ReturnUrl"] != null ? TempData["ReturnUrl"].ToString() : null;
             if (String.IsNullOrEmpty(returnUrl))
             {

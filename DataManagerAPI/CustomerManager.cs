@@ -13,6 +13,12 @@ namespace DataManagerAPI
     /// </summary>
     public static class CustomerManager
     {
+        /// <summary>
+        /// Gets Customer based on passed Id
+        /// </summary>
+        /// <param name="id"> Customer Id </param>
+        /// <returns>A Customer Associated with the id </returns>
+        /// <author>Daniel Palmer</author>
         public static Customer GetCustomer(int id)
         {
             TravelExpertsContext db = new TravelExpertsContext();
@@ -49,7 +55,13 @@ namespace DataManagerAPI
             db.SaveChanges();
             return customerContext.Entity;
         }
-
+        /// <summary>
+        /// Verifies that a Customer exists with passed username and password
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns>A Customer Associated with the username and password </returns>
+        /// <author>Daniel Palmer</author>
         public static Customer Authenticate(string username, string password)
         {
             TravelExpertsContext db = new TravelExpertsContext();
