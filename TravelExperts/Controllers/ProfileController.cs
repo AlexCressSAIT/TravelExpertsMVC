@@ -8,12 +8,20 @@ using TravelExpertsData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 
+
+/*
+ *Controller that holds actions for CustomerProfile View, Login Authorized
+ *Author: Daniel Palmer Alex Cress
+ *Date: 2022 - 02 - 12
+ */
+
+
 namespace TravelExperts.Controllers
 {
     [Authorize]
     public class ProfileController : Controller
     {
-        
+        // Action that serves the CustomerProfile View based on Id saved in cookie or session
         [Route("[controller]/CustomerProfile/{id?}")]
         public IActionResult CustomerProfile()
         {
