@@ -9,11 +9,17 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using TravelExpertsData;
 
+/*
+ * Controller that holds all Actions for login and register system
+ * Author : Daniel Palmer
+ * Date: 2022-02-05
+ */
+
 namespace TravelExperts.Controllers
 {
     public class AccountController : Controller
     {
-
+        // Action returns the 
         public IActionResult Login(string ReturnUrl = "")
         {
             if (ReturnUrl != null)
