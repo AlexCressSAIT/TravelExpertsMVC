@@ -1,4 +1,13 @@
-﻿@model PackageBookingGroupViewModel
+﻿@*
+
+    The view for logged in User's booking
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@model PackageBookingGroupViewModel
 
 @{
     ViewData["Title"] = "ViewBookings";
@@ -26,139 +35,72 @@
             <hr style="background-color: var(--TravelBlue)" />
         </div>
 
+        @if (Model.BookingGroup.Count == 0)
+            {
+                <h4 style="margin-left: 10px;">No bookings to show</h4>
+            }
+
         @foreach (var bookingGroup in Model.BookingGroup)
          {
-         <div style="padding-top:36px; padding-bottom:36px" class="jumbotron">
-        @foreach (var booking in bookingGroup.Bookings)
-         {
-            <h3>@booking.Package.PkgName</h3>
-            <div class="font-italic">&quot; @booking.Package.PkgDesc &quot;</div>
-            <dl class="row siteFont">
-                <dt class="offset-sm-1 col-sm-4">
-                    Guests
-                </dt>
-                <dd class="col-sm-7">
-                    @booking.TravelerCount
-                </dd>
-
-                @if (booking.TripTypeName != null)
-                {
+            decimal totalPrice = 0;
+             <div style="padding-top:36px; padding-bottom:36px" class="jumbotron">
+            @foreach (var booking in bookingGroup.Bookings)
+             {
+                totalPrice += booking.TravelerCount * booking.Package.PkgBasePrice;
+                <h3>@booking.Package.PkgName</h3>
+                <div class="font-italic">&quot; @booking.Package.PkgDesc &quot;</div>
+                <dl class="row siteFont">
                     <dt class="offset-sm-1 col-sm-4">
-                        Travel Type
+                        Guests
                     </dt>
                     <dd class="col-sm-7">
-                        @booking.TripTypeName
+                        @booking.TravelerCount
                     </dd>
+
+                    @if (booking.TripTypeName != null)
+                    {
+                        <dt class="offset-sm-1 col-sm-4">
+                            Travel Type
+                        </dt>
+                        <dd class="col-sm-7">
+                            @booking.TripTypeName
+                        </dd>
+                    }
+
+                    <dt class="offset-sm-1 col-sm-4">
+                        Duration
+                    </dt>
+                    <dd class="col-sm-7">
+                        @(((TimeSpan)(booking.Package.PkgEndDate - booking.Package.PkgStartDate)).Days) days
+                    </dd>
+                    <dt class="offset-sm-1 col-sm-4">
+                        Subtotal
+                    </dt>
+                    <dd class="col-sm-7">
+                        @((booking.Package.PkgBasePrice * booking.TravelerCount).ToString("c"))
+                    </dd>
+                </dl>
                 }
-
-                <dt class="offset-sm-1 col-sm-4">
-                    Duration
-                </dt>
-                <dd class="col-sm-7">
-                    @(((TimeSpan)(booking.Package.PkgEndDate - booking.Package.PkgStartDate)).Days) days
-                </dd>
-                <dt class="offset-sm-1 col-sm-4">
-                    Total Price
-                </dt>
-                <dd class="col-sm-7">
-                    @((booking.Package.PkgBasePrice * booking.TravelerCount).ToString("c"))
-                </dd>
-            </dl>
+                 @{
+                     DateTime bd = (DateTime)bookingGroup.BookingDate;
+                  }
+                <hr class="blueRule" />
+                <dl class="row siteFont">
+                    <dt class="offset-sm-1 col-sm-4">
+                        Booking Date:
+                    </dt>
+                    <dd class="col-sm-7">
+                        @bd.ToString("MMMM dd, yyyy")
+                    </dd>
+                    <dt class="offset-sm-1 col-sm-4">
+                        Total:
+                    </dt>
+                    <dd class="col-sm-7">
+                        @totalPrice.ToString("c")
+                    </dd>
+                </dl>
+            </div>
             }
-             @{
-                 DateTime bd = (DateTime)bookingGroup.BookingDate;
-              }
-            <hr class="blueRule" />
-            <dl class="row siteFont">
-                <dt class="offset-sm-1 col-sm-4">
-                    Booking Date:
-                </dt>
-                <dd class="col-sm-7">
-                    @bd.ToString("MMMM dd, yyyy")
-                </dd>
-            </dl>
-        </div>
-        }
-        @* <dl class="row siteFont">
-
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustomerId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustomerId)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustFirstName)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustFirstName)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustLastName)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustLastName)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustUsername)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustUsername)
-            </dd>
-        </dl>
-        <div>
-            <h3 style="margin-left:10px">Contact Information</h3>
-            <hr style="background-color: var(--TravelBlue)" />
-        </div>
-        <dl class="row siteFont">
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustAddress)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustAddress)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustCity)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustCity)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustProv)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustProv)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustPostal)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustPostal)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustCountry)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustCountry)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustHomePhone)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustHomePhone)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustBusPhone)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustBusPhone)
-            </dd>
-            <dt class="offset-sm-1 col-sm-4">
-                @Html.DisplayNameFor(model => model.CustEmail)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.CustEmail)
-            </dd>
-        </dl>*@
+        <a class="btn btn-secondary" style="margin-left: 10px; margin-top: 20px" href="#">Back to Top</a>
     </div>
 </div>

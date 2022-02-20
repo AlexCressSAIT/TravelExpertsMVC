@@ -7,8 +7,17 @@ using TravelExperts.Models;
 
 namespace TravelExperts.Controllers
 {
+    /*
+     * The controller that handles cart-related functionality
+     * Author: Nate Penner
+     * February 2022
+     */
     public class CartController : Controller
     {
+        /// <summary>
+        /// The action that shows the user their cart
+        /// </summary>
+        /// <returns>A list of the items in the cart</returns>
         // GET: CartController
         [Route("{controller}")]
         public ActionResult ViewCart()
@@ -18,12 +27,25 @@ namespace TravelExperts.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// The action that redirects the user to the options page with the package they selected.
+        /// The item is not yet saved to the cart at this point.
+        /// </summary>
+        /// <param name="packageId">The package id that will be added to the cart after options are selected</param>
+        /// <returns>Redirects to booking options, passing the package ID to it as a query parameter</returns>
         [HttpPost]
         public ActionResult AddItem(int packageId)
         {
             return RedirectToAction("Options", "Booking", new { packageId = packageId });
         }
         
+        /// <summary>
+        /// Saves the package to the cart
+        /// </summary>
+        /// <param name="packageId">The id of the package to save</param>
+        /// <param name="numTravelers">The number of people traveling</param>
+        /// <param name="tripTypeId">The type of the trip</param>
+        /// <returns>Redirects to the cart page</returns>
         [HttpPost]
         public ActionResult SaveCartItem(int packageId, int numTravelers, string tripTypeId)
         {
@@ -35,75 +57,6 @@ namespace TravelExperts.Controllers
             session.SetCartItems(cart);
 
             return RedirectToAction("ViewCart");
-        }
-
-        // GET: CartController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CartController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CartController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CartController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CartController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

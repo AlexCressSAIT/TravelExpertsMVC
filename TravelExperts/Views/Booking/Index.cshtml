@@ -1,4 +1,13 @@
-﻿@model dynamic
+﻿@*
+
+    The main package booking page where a user can select a vacation package to book
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@*@model dynamic*@
 @{
     ViewData["Title"] = "Book a Vacation Package";
 }
@@ -6,10 +15,10 @@
 
 <form class="row form-group text-center siteFont" asp-controller="Booking" asp-action="BookPackage">
     <label class="col-12 text-center col-md-auto col-form-label" for="selectedPackage">Select a vacation package:</label>
-    <select style="color:black" class="col-8 mx-auto mx-sm-0 col-md-3 form-control siteFont" id="selectedPackage" name="selectedPackageId" asp-items='@new SelectList(Model, "Value", "Text")'></select>
+    <select style="color:black" class="col-8 mx-auto mx-sm-0 col-md-3 form-control siteFont" id="selectedPackage" name="selectedPackageId" @*asp-items='@new SelectList(Model, "Value", "Text")'*@></select>
 </form>
 
-<div id="pkgInfo" style="display: none; background-color: rgba(0, 0, 0, 0)" class="row card">
+<div id="pkgInfo" style="display: none; background-color: rgba(0, 0, 0, 0); border: 0" class="row card">
     <div style="padding-top:36px; border: 0; background-color: rgba(0, 0, 0, 0)" class="text-center" id="pkgInfoContent">
         <h1 id="pkgName"></h1>
         <hr class="blueRule" />
@@ -45,23 +54,23 @@
     <br />
     <br />
     <div id="moreInfo" class="siteFont container">
-            
+
     </div>
 </div>
 <br />
 <br />
 @*<partial name="_BookingSideMenuPartial" />*@
 @*<div class="row">
-    <div class="col-sm-3">
-        <div class="list-group">
-            <a class="list-group-item active table-hover" asp-controller="Booking" asp-action="Cart">Cart</a>
-            <a class="list-group-item" asp-controller="Product" asp-action="List">Products</a>
-            <a class="list-group-item" asp-controller="Package" asp-action="List">Packages</a>
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a class="list-group-item active table-hover" asp-controller="Booking" asp-action="Cart">Cart</a>
+                <a class="list-group-item" asp-controller="Product" asp-action="List">Products</a>
+                <a class="list-group-item" asp-controller="Package" asp-action="List">Packages</a>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @*<form asp-controller="Booking" asp-action="ViewBookings">
-    <select name="id" asp-items="@(new SelectList(ViewBag.Customers, "ID", "FullName"))"></select>
-    <button type="submit" class="btn btn-primary">Get Bookings</button>
-</form>*@
+        <select name="id" asp-items="@(new SelectList(ViewBag.Customers, "ID", "FullName"))"></select>
+        <button type="submit" class="btn btn-primary">Get Bookings</button>
+    </form>*@

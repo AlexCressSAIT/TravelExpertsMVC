@@ -1,9 +1,18 @@
-﻿@{ List<CartItemViewModel> Model = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
+﻿@*
+
+    The shopping cart view
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@{ List<CartItemViewModel> Model = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
 @{ bool CartIsEmpty = (Model == null || Model.Count == 0) ? true : false; }
 @{ decimal totalPrice = 0m; }
 @{
     ViewData["Title"] = "Shopping Cart";
-} 
+}
 <br />
 <br />
 <div class="row">
@@ -31,10 +40,9 @@
                                 totalPrice += (cartItem.Package.PkgBasePrice * Convert.ToDecimal(cartItem.NumTravelers));
 
                                 <div style="padding-top: 36px; padding-bottom:36px" class="row mt-3 jumbotron">
-                                    <div class="siteFont"><h3 class="font-weight-bold">@cartItem.Package.PkgName </h3></div>
-                                    <div class="siteFont"><span class="font-italic">&quot;@cartItem.Package.PkgDesc &quot;</span></div>
-                                    <div class="siteFont">&ensp;-&ensp;<span class="font-weight-bold">@cartItem.TripDuration days </span></div>
-                                    <div class="siteFont"><span class="font-weight-bold">@cartItem.NumTravelers guests x @cartItem.Package.PkgBasePrice.ToString("c") </span></div>
+                                    <div class="col-12 siteFont"><h3 class="font-weight-bold">@cartItem.Package.PkgName </h3></div>
+                                    <div class="col-12 siteFont"><span class="font-italic">&quot;@cartItem.Package.PkgDesc &quot;&ensp;-&ensp;<span class="font-weight-bold">@cartItem.TripDuration days </span></span></div>
+                                    <div class="col-12 siteFont"><span class="font-weight-bold">@cartItem.NumTravelers guests x @cartItem.Package.PkgBasePrice.ToString("c") </span></div>
                                 </div>
                             }
                         }
@@ -42,11 +50,11 @@
                         @if (!CartIsEmpty)
                         {
                             <div class="text-center">
-                                <div class="siteFont"><span >Total:</span> @totalPrice.ToString("c") </div>
+                                <div class="siteFont"><span>Total:</span> @totalPrice.ToString("c") </div>
                                 <hr class="blueRule" />
                                 <a class="btn btn-primary siteFont" asp-controller="Booking" asp-action="Checkout">Checkout</a>
                             </div>
-                                
+
                         }
                     </div>
                 </div>

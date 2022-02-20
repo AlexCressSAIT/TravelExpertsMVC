@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 
 namespace TravelExperts.Models
 {
+    /*
+     * Didn't end up using in this project, but could be used for easily dividing data
+     * into pages or slices in the future
+     * Author: Nate Penner
+     * February 2022
+     */
     public static class IQueryableExtensions
     {
         /// <summary>
@@ -34,6 +40,8 @@ namespace TravelExperts.Models
             return queryable.Slice(offset, pageSize);
         }
 
+
+        // List implementations of the same above
         public static List<T> Slice<T>(this List<T> list, int offset, int count)
         {
             return list.Skip(offset).Take(count).ToList();
