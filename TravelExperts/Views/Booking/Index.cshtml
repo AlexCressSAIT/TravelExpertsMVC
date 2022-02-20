@@ -1,4 +1,13 @@
-﻿@*@model dynamic*@
+﻿@*
+
+    The main package booking page where a user can select a vacation package to book
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@*@model dynamic*@
 @{
     ViewData["Title"] = "Book a Vacation Package";
 }
@@ -45,23 +54,23 @@
     <br />
     <br />
     <div id="moreInfo" class="siteFont container">
-            
+
     </div>
 </div>
 <br />
 <br />
 @*<partial name="_BookingSideMenuPartial" />*@
 @*<div class="row">
-    <div class="col-sm-3">
-        <div class="list-group">
-            <a class="list-group-item active table-hover" asp-controller="Booking" asp-action="Cart">Cart</a>
-            <a class="list-group-item" asp-controller="Product" asp-action="List">Products</a>
-            <a class="list-group-item" asp-controller="Package" asp-action="List">Packages</a>
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a class="list-group-item active table-hover" asp-controller="Booking" asp-action="Cart">Cart</a>
+                <a class="list-group-item" asp-controller="Product" asp-action="List">Products</a>
+                <a class="list-group-item" asp-controller="Package" asp-action="List">Packages</a>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @*<form asp-controller="Booking" asp-action="ViewBookings">
-    <select name="id" asp-items="@(new SelectList(ViewBag.Customers, "ID", "FullName"))"></select>
-    <button type="submit" class="btn btn-primary">Get Bookings</button>
-</form>*@
+        <select name="id" asp-items="@(new SelectList(ViewBag.Customers, "ID", "FullName"))"></select>
+        <button type="submit" class="btn btn-primary">Get Bookings</button>
+    </form>*@

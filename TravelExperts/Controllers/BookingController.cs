@@ -12,8 +12,18 @@ using TravelExpertsData;
 
 namespace TravelExperts.Controllers
 {
+    /*
+     * The controller that handles all booking related pages and API routes
+     * 
+     * Author: Nate Penner
+     * February 2022
+     */
     public class BookingController : Controller
     {
+        /// <summary>
+        /// Controller for the main booking page
+        /// </summary>
+        /// <returns>The main booking page view</returns>
         // GET: BookingController
         [Route("{controller}")]
         public ActionResult Index()
@@ -21,6 +31,13 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        /// <summary>
+        /// An API endpoint to assist with generating a client-side select list for the packages
+        /// </summary>
+        /// <returns>
+        ///     A list of objects representing the select list options displaying package name
+        ///     and using the package ID for the list option value
+        /// </returns>
         [Route("/api/package/listoptions")]
         public Object GetPackageListOptions()
         {
@@ -40,6 +57,11 @@ namespace TravelExperts.Controllers
             return packages;
         }
 
+        /// <summary>
+        /// An API endpoint for retrieving information about a specific vacation package by its packageId
+        /// </summary>
+        /// <param name="packageId">The ID of the package to retrieve</param>
+        /// <returns>The package info</returns>
         [Route("/api/package/{packageId?}")]
         public Object GetPackage(int packageId = 0)
         {
@@ -53,6 +75,11 @@ namespace TravelExperts.Controllers
             return pkg;
         }
 
+        /// <summary>
+        /// An API endpoint for retrieving photos of a specific vacation package
+        /// </summary>
+        /// <param name="packageId">The packageId of the package to retrieve the photos for</param>
+        /// <returns>A string list containing the URLs of the photos</returns>
         [Route("/api/package/gallery/{packageId?}")]
         public string[] GetPackagePhotos(int packageId)
         {
@@ -67,6 +94,11 @@ namespace TravelExperts.Controllers
             return new string[] { };
         }
 
+        /// <summary>
+        /// An API endpoint that retrieves the Products that are part of this package, and their supplier
+        /// </summary>
+        /// <param name="packageId">The id of the package to retrieve info about</param>
+        /// <returns>A view model list of PackageProductsSuppliersView</returns>
         [Route("/api/package/products/{packageId?}")]
         public List<PackageProductsSuppliersView> GetPackageProductsSuppliers(int packageId)
         {
@@ -89,6 +121,11 @@ namespace TravelExperts.Controllers
             return model.OrderBy(m => m.ProductName).ToList();
         }
 
+        /// <summary>
+        /// Handles the customer view bookings page
+        /// </summary>
+        /// <param name="id">The ID of the customer</param>
+        /// <returns>A view showing the customer their bookings</returns>
         // GET: /Booking/4
         [HttpGet]
         [Route("{controller}/{action}/{id}")]
@@ -143,6 +180,12 @@ namespace TravelExperts.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Returns a view page for the user to select additional trip options, like the number of
+        /// travelers and the trip type
+        /// </summary>
+        /// <param name="packageId">The id of the package selected by the user</param>
+        /// <returns>The booking options view</returns>
         [HttpGet]
         public ActionResult Options(int packageId)
         {
@@ -154,6 +197,13 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This handles the actual booking of the items in the cart
+        /// </summary>
+        /// <returns>
+        ///     Either a thank you page, or redirect to login (if unauthorized), or redirect
+        ///     to the home page if there's nothing in the cart
+        /// </returns>
         [Authorize]
         [HttpGet]
         public ActionResult Checkout()
@@ -203,79 +253,23 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Generates a finalization page, where the user can review the booking before adding it to the cart
+        /// </summary>
+        /// <param name="packageId">The id of the package being added to the cart</param>
+        /// <param name="numTravelers">The number of people traveling</param>
+        /// <param name="tripTypeId">The trip type</param>
+        /// <returns>A view showing the user their booking info</returns>
         [HttpPost]
         public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
             CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
-            DateTime sd = (DateTime)cartItemView.Package.PkgStartDate;
-            DateTime ed = (DateTime)cartItemView.Package.PkgEndDate;
-            ViewBag.Sd = sd.ToString("MMMM dd, yyyy");
-            ViewBag.Ed = ed.ToString("MMMM dd, yyyy");
+            DateTime startDate = (DateTime)cartItemView.Package.PkgStartDate;
+            DateTime endDate = (DateTime)cartItemView.Package.PkgEndDate;
+            ViewBag.StartDate = startDate.ToString("MMMM dd, yyyy");
+            ViewBag.EndDate = endDate.ToString("MMMM dd, yyyy");
 
             return View(cartItemView);
-        }
-
-        // GET: BookingController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: BookingController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BookingController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: BookingController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BookingController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BookingController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

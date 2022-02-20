@@ -1,4 +1,13 @@
-﻿@model CartItemViewModel
+﻿@*
+
+    The page where users review the details of their trip before adding it to the cart
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@model CartItemViewModel
 
 <br />
 <br />
@@ -9,9 +18,9 @@
         <h4>@Model.Package.PkgName</h4>
         <dl class="row siteFont">
             <dt class="offset-sm-1 col-sm-3">Depart</dt>
-            <dd class="col-sm-7">@ViewBag.Sd</dd>
+            <dd class="col-sm-7">@ViewBag.StartDate</dd>
             <dt class="offset-sm-1 col-sm-3">Return</dt>
-            <dd class="col-sm-7"> @ViewBag.Ed</dd>
+            <dd class="col-sm-7"> @ViewBag.EndDate</dd>
             <dt class="offset-sm-1 col-sm-3">Trip Duration</dt>
             <dd class="col-sm-7"> @Model.TripDuration days</dd>
             <dt class="offset-sm-1 col-sm-3">Guests</dt>
@@ -32,6 +41,6 @@
         <div class="text-center">
             <button type="submit" class="btn btn-primary ">Save to Cart</button>
         </div>
-        
+
     </form>
 </div>

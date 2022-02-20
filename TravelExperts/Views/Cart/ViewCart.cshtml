@@ -1,9 +1,18 @@
-﻿@{ List<CartItemViewModel> Model = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
+﻿@*
+
+    The shopping cart view
+    Author: Nate Penner
+    Styling: Daniel Palmer, Nate Penner
+    February 2022
+
+*@
+
+@{ List<CartItemViewModel> Model = Context.Session.GetObject<List<CartItemViewModel>>("cartItems"); }
 @{ bool CartIsEmpty = (Model == null || Model.Count == 0) ? true : false; }
 @{ decimal totalPrice = 0m; }
 @{
     ViewData["Title"] = "Shopping Cart";
-} 
+}
 <br />
 <br />
 <div class="row">
@@ -41,11 +50,11 @@
                         @if (!CartIsEmpty)
                         {
                             <div class="text-center">
-                                <div class="siteFont"><span >Total:</span> @totalPrice.ToString("c") </div>
+                                <div class="siteFont"><span>Total:</span> @totalPrice.ToString("c") </div>
                                 <hr class="blueRule" />
                                 <a class="btn btn-primary siteFont" asp-controller="Booking" asp-action="Checkout">Checkout</a>
                             </div>
-                                
+
                         }
                     </div>
                 </div>
