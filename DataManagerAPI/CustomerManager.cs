@@ -67,6 +67,23 @@ namespace DataManagerAPI
             TravelExpertsContext db = new TravelExpertsContext();
             return db.Customers.SingleOrDefault(c => c.CustUsername == username && c.CustPassword == password);
         }
+        /// <summary>
+        /// Verifies the Username is unique
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Returns a bool whether the username is unique</returns>
+        public static bool VerifyUsername(string username)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
+            if (db.Customers.SingleOrDefault(usr => usr.CustUsername == username) != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public static void UpdateCustomer(Customer newCustomer)
         {
