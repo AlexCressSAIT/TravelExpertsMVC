@@ -14,6 +14,10 @@ Date: 2022-02-12
 <div col-12>
     <div class="jumbotron col-md-6 mx-auto">
         <h2>Register</h2>
+        @if (ViewBag.UserNameError != null)
+        {
+            <h4 class="text-danger">@ViewBag.UserNameError</h4>
+        }
         <hr class="blueRule" />
         <div>
             <form class="col-md-10" asp-action="Register">
