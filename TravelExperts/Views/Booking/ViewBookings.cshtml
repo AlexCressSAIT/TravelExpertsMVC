@@ -26,6 +26,11 @@
             <hr style="background-color: var(--TravelBlue)" />
         </div>
 
+        @if (Model.BookingGroup.Count == 0)
+            {
+                <h4 style="margin-left: 10px;">No bookings to show</h4>
+            }
+
         @foreach (var bookingGroup in Model.BookingGroup)
          {
             decimal totalPrice = 0;
@@ -87,6 +92,6 @@
                 </dl>
             </div>
             }
-        <a class="btn btn-secondary" href="#">Back to Top</a>
+        <a class="btn btn-secondary" style="margin-left: 10px; margin-top: 20px" href="#">Back to Top</a>
     </div>
 </div>
