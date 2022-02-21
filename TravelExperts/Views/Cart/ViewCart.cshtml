@@ -75,20 +75,20 @@
 @* Confirm dialog for emptying the cart *@
 @if (!CartIsEmpty)
 {
-    <div class="container m-auto" style="background-color: white; width: 25%;" id="confirmDialog">
-        <div class="row bg-primary">
+    <div class="container cartClear" style="background-color: #303030; border: 1px solid #78A2CC; border-radius:10px" id="confirmDialog">
+        <div class="row bg-blue cartHeader">
             <div class="col-12">
                 <h3 class="text-center text-white siteFont my-2">Confirm</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 text-center text-dark mt-3 siteFont">Do you want to remove all items from your cart?</div>
+            <div class="col-12 text-center mt-3 siteFont">Do you want to remove all items from your cart?</div>
         </div>
         <div class="row justify-content-center my-3">
-            <div class="col-2 btn btn-success px-3 py-1 mr-2 siteFont" id="confirmYes">
+            <div class="btn btn-success px-3 py-1 mr-2 siteFont" id="confirmYes">
                 Yes
             </div>
-            <div class="col-2 btn btn-danger px-3 py-1 siteFont" id="confirmNo">
+            <div class="btn btn-danger px-3 py-1 siteFont" id="confirmNo">
                 No
             </div>
         </div>
