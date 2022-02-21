@@ -76,6 +76,10 @@ a {
     font-size: 24px;
 }
 
+.cartClear{
+    width: 25%;
+}
+
 /* Style for Jumbotron*/
 .jumbotron {
     border: 1px solid var(--TravelBlue);
@@ -220,6 +224,12 @@ body {
     }
     .cartViewCartIcon {
         padding: 0;
+    }
+}
+
+@media (max-width: 750px) {
+    .cartClear {
+        width: 100%;
     }
 }
 
