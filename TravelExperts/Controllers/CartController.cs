@@ -22,6 +22,7 @@ namespace TravelExperts.Controllers
         [Route("{controller}")]
         public ActionResult ViewCart()
         {
+            // Load the session data, grab cart items and return the cart view
             BookingSession session = new BookingSession(HttpContext.Session);
             List<CartItemViewModel> model = session.GetCartItems();
             return View(model);
@@ -49,13 +50,17 @@ namespace TravelExperts.Controllers
         [HttpPost]
         public ActionResult SaveCartItem(int packageId, int numTravelers, string tripTypeId)
         {
+            // Grab the session data
             BookingSession session = new BookingSession(HttpContext.Session);
+
+            // Add an item to the cart
             List<CartItemViewModel> cart = session.GetCartItems();
             cart.Add(
                 CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId)
                 );
             session.SetCartItems(cart);
 
+            // Show the cart
             return RedirectToAction("ViewCart");
         }
     }
