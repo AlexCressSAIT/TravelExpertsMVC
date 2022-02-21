@@ -1,4 +1,11 @@
-﻿/* Handles AJAX calls on the package booking page */
+﻿/*
+ * Script for the vacation package selection page. Handles AJAX
+ * requests to get package information, photos, and information
+ * about products and suppliers.
+ * Author: Nate Penner
+ * February 2022
+ */
+
 (function (root, undefined) {
     // Don't do anything until the DOM is available
     $(document).ready(main);

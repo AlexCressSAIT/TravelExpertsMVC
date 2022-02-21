@@ -1,4 +1,11 @@
-﻿(function (root, undefined) {
+﻿/*
+ * Script for the cart page. Handles clearing of the cart
+ * and warning the user of what is about to happen.
+ * Author: Nate Penner
+ * February 2022
+ */
+
+(function (root, undefined) {
     // Wait until the DOM is loaded before doing anything
     $(document).ready(main);
 
