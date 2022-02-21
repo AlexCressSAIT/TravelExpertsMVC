@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using TravelExperts.Models;
 
@@ -62,6 +63,33 @@ namespace TravelExperts.Controllers
 
             // Show the cart
             return RedirectToAction("ViewCart");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCartItem(Guid cartItemId)
+        {
+            BookingSession session = new BookingSession(HttpContext.Session);
+
+            List<CartItemViewModel> cart = session.GetCartItems();
+            cart = cart.Where(i => i.CartItemKey != cartItemId).ToList();
+            session.SetCartItems(cart);
+            
+            return RedirectToAction("ViewCart");
+        }
+
+        /// <summary>
+        /// Clears the cart (removes all items)
+        /// </summary>
+        /// <returns>The view cart page</returns>
+        [HttpGet]
+        public ActionResult ClearAll()
+        {
+            // Clear the cart from the session
+            BookingSession session = new BookingSession(HttpContext.Session);
+
+            session.ClearCart();
+
+            return View("ViewCart");
         }
     }
 }
