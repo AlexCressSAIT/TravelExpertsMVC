@@ -11,6 +11,7 @@ namespace TravelExperts.Models
     public class CartItemViewModel
     {
         public Package Package { get; set; }    // the package ID of this item
+        public Guid CartItemKey { get; set; }
         public int NumTravelers { get; set; }   // the number of travelers
         public string TripTypeId { get; set; }  // the ID of the trip type
         public string TripTypeName { get; set; }    // the name of the trip type
@@ -23,7 +24,7 @@ namespace TravelExperts.Models
         /// <param name="numTravelers">The number of travelers</param>
         /// <param name="tripTypeId">The trip type id</param>
         /// <returns>A view model for this cart item</returns>
-        public static CartItemViewModel BuildCartItem(int packageId, int numTravelers, string tripTypeId)
+        public static CartItemViewModel BuildCartItem(int packageId, int numTravelers, string tripTypeId, Guid? guid = null)
         {
             // Retrieve the package from the database by ID
             Package pkg = PackageManager.GetPackageById(packageId);
@@ -34,6 +35,7 @@ namespace TravelExperts.Models
             // return the new item view model
             return new CartItemViewModel
             {
+                CartItemKey = guid ?? Guid.NewGuid(),
                 Package = pkg,
                 NumTravelers = numTravelers,
                 TripTypeId = tt.TripTypeId,

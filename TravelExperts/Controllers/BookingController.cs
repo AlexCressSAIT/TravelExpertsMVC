@@ -41,7 +41,7 @@ namespace TravelExperts.Controllers
         [Route("/api/package/listoptions")]
         public Object GetPackageListOptions()
         {
-            // Create an anonymous 
+            // Create the first select list entry
             var packages = new[]
             {
                 new
@@ -49,6 +49,8 @@ namespace TravelExperts.Controllers
                     Value = 0, Text = "&lt;Select a package&gt;"
                 }
             }.ToList();
+
+            // Get the package info from the database for the select list
             packages.AddRange(
                 PackageManager.GetPackages()
                 .Select(p => new { Value = p.PackageId, Text = p.PkgName })
@@ -65,6 +67,7 @@ namespace TravelExperts.Controllers
         [Route("/api/package/{packageId?}")]
         public Object GetPackage(int packageId = 0)
         {
+            // Get the package and return as JSON, or return a JSON object with an error message
             Package pkg;
             if (packageId == 0 || 
                 (pkg = PackageManager.GetPackageById(packageId)) == null
@@ -83,7 +86,10 @@ namespace TravelExperts.Controllers
         [Route("/api/package/gallery/{packageId?}")]
         public string[] GetPackagePhotos(int packageId)
         {
+            // Get the folder of images for the selected package
             string path = $@"{Directory.GetCurrentDirectory()}\wwwroot\media\images\vacations\{packageId}";
+
+            // If the folder exists, get all the filenames and generate a list of URLs
             if (Directory.Exists(path))
             {
                 return Directory.EnumerateFiles(path)
@@ -91,6 +97,7 @@ namespace TravelExperts.Controllers
                     .ToArray();
             }
 
+            // return the URLs
             return new string[] { };
         }
 
@@ -102,10 +109,15 @@ namespace TravelExperts.Controllers
         [Route("/api/package/products/{packageId?}")]
         public List<PackageProductsSuppliersView> GetPackageProductsSuppliers(int packageId)
         {
+            // Get the package by ID
             TravelExpertsContext ctx = new TravelExpertsContext();
             Package pkg = PackageManager.GetPackageById(packageId, ctx);
+
+            // Get the productssuppliers for this package
             List<ProductsSupplier> productsSuppliers = PackageProductSuppliersManager
                 .GetProductSuppliers(pkg, ctx);
+
+            // Create a view out of the combined information
             List<PackageProductsSuppliersView> model = new List<PackageProductsSuppliersView>();
             productsSuppliers.ForEach(ps =>
             {
@@ -118,6 +130,7 @@ namespace TravelExperts.Controllers
                 });
             });
 
+            // Return the model, ordered by product name
             return model.OrderBy(m => m.ProductName).ToList();
         }
 
@@ -131,18 +144,20 @@ namespace TravelExperts.Controllers
         [Route("{controller}/{action}/{id}")]
         public ActionResult ViewBookings(int id)
         {
+            // Get the logged in customer, or id 0 if there isn't one
             int loggedInId = HttpContext.Session.GetInt32("CurrentCustomer") ?? 0;
 
+            // Redirect to login page if there is no customer logged in
             if (loggedInId == 0)
             {
                 HttpContext.Session.SetObject<string>("LoginErrorMessage", "You must log in to view your bookings.");
                 return RedirectToAction("Login", "Account");
             }
 
+            // Send the customer ID to the next page
             ViewBag.CustomerId = loggedInId;
-            /*List<Booking> bookings = BookingManager.GetCustomerBookings(id).OrderByDescending(b => b.BookingDate).ToList();*/
             
-            TravelExpertsContext db = new TravelExpertsContext();
+            TravelExpertsContext db = new TravelExpertsContext();   // db connection
             
             // Get a list of all bookings for a customer, grouped by booking number
             List<List<Booking>> bookingGroups = BookingManager.GetGroupedPackageBookingsByCustomerId(loggedInId, db);
@@ -176,7 +191,10 @@ namespace TravelExperts.Controllers
                 });
             });
 
+            // Show the most recent bookings first
             model.BookingGroup = model.BookingGroup.OrderByDescending(bg => bg.BookingDate).ToList();
+
+            // Return the view and model
             return View(model);
         }
 
@@ -189,11 +207,14 @@ namespace TravelExperts.Controllers
         [HttpGet]
         public ActionResult Options(int packageId)
         {
+            // Persist the data need for the options page
             TempData["packageId"] = packageId;
             ViewBag.SelectNumTravelers = Utils.SelectRange(1, 10);
             List<TripType> tripTypes = TripTypeManager.GetTripTypes();
             ViewBag.SelectTripClass = new SelectList(tripTypes, "TripTypeId", "Ttname");
             ViewBag.PackageName = PackageManager.GetPackageName(packageId);
+
+            // Return the options page view
             return View();
         }
 
@@ -208,6 +229,7 @@ namespace TravelExperts.Controllers
         [HttpGet]
         public ActionResult Checkout()
         {
+            // Get the logged in customer id
             string id = "";
             HttpContext.Request.Cookies.TryGetValue("CustomerId", out id);
 
@@ -250,6 +272,8 @@ namespace TravelExperts.Controllers
             // Clear the cart
             session.ClearCart();
             ViewBag.Customer = customerId;
+
+            // Return the thank you page
             return View();
         }
 
@@ -263,6 +287,7 @@ namespace TravelExperts.Controllers
         [HttpPost]
         public ActionResult FinalizeOptions(int packageId, int numTravelers, string tripTypeId)
         {
+            // Generate the view for the user to see their booking info before they confirm
             CartItemViewModel cartItemView = CartItemViewModel.BuildCartItem(packageId, numTravelers, tripTypeId);
             DateTime startDate = (DateTime)cartItemView.Package.PkgStartDate;
             DateTime endDate = (DateTime)cartItemView.Package.PkgEndDate;
