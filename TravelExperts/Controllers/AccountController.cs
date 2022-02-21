@@ -106,19 +106,20 @@ namespace TravelExperts.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(Customer customer)
         {
-                // Checks the database to ensure the username is unique
-                try
-                {
-                    CustomerManager.VerifyUsername(customer.CustUsername);
-                    Customer newCustomer = CustomerManager.AddCustomer(customer);
-                    await Login(customer);
-                    return RedirectToAction("Index", "Home");
-                }
-                catch
-                {
-                    ViewBag.UserNameError = "Username is already taken";
-                    return View();
-                }
+            customer.CustPostal = customer.CustPostal.ToUpper();
+            // Checks the database to ensure the username is unique
+            try
+            {
+                CustomerManager.VerifyUsername(customer.CustUsername);
+                Customer newCustomer = CustomerManager.AddCustomer(customer);
+                await Login(customer);
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                ViewBag.UserNameError = "Username is already taken";
+                return View();
+            }
             
         }
     }
