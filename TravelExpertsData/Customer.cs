@@ -47,7 +47,7 @@ namespace TravelExpertsData
         [Display(Name = "Provice/State")]
         public string CustProv { get; set; }
 
-        [RegularExpression(@"^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$", ErrorMessage = "Please enter a valid Postal Code. Example: A1B 2C3")]
+        [RegularExpression(@"^[ABCEGHJ-NPRSTVXYabceghj-nprstvxy][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]$", ErrorMessage = "Please enter a valid Postal Code. Example: A1B 2C3")]
         [Required(ErrorMessage = "Postal code is required")]
         [StringLength(7)]
         [Display(Name = "Postal/Zip Code")]
