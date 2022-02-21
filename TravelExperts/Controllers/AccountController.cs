@@ -82,6 +82,9 @@ namespace TravelExperts.Controllers
                 return Redirect(returnUrl);
             }
         }
+
+        //Logs out user, removes customer data from cookies and session
+        // Author: Daniel Palmer Alex Cress
         [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
@@ -103,10 +106,10 @@ namespace TravelExperts.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(Customer customer)
         {
-
+                // Checks the database to ensure the username is unique
                 try
                 {
-                CustomerManager.VerifyUsername(customer.CustUsername);
+                    CustomerManager.VerifyUsername(customer.CustUsername);
                     Customer newCustomer = CustomerManager.AddCustomer(customer);
                     await Login(customer);
                     return RedirectToAction("Index", "Home");

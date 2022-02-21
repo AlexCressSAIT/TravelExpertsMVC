@@ -72,6 +72,7 @@ namespace DataManagerAPI
         /// </summary>
         /// <param name="username"></param>
         /// <returns>Returns a bool whether the username is unique</returns>
+        /// <author>Daniel Palmer</author>
         public static bool VerifyUsername(string username)
         {
             TravelExpertsContext db = new TravelExpertsContext();
