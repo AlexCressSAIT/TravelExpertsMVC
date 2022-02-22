@@ -17,6 +17,7 @@ namespace TravelExperts.Controllers
      * 
      * Author: Nate Penner
      * February 2022
+     * Updated by: Alex Cress 
      */
     public class BookingController : Controller
     {
@@ -218,6 +219,8 @@ namespace TravelExperts.Controllers
             return View();
         }
 
+        // Updated by: Alex Cress -Fixed bug with session id being null
+        //                        -Added cookie functionality
         /// <summary>
         /// This handles the actual booking of the items in the cart
         /// </summary>

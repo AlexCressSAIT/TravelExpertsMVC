@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
+// Updated by: Alex Cress -Added validation/error messages to fields (regex)
+
 namespace TravelExpertsData
 {
     [Index(nameof(AgentId), Name = "EmployeesCustomers")]

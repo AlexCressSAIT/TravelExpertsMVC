@@ -13,6 +13,8 @@ using TravelExpertsData;
  * Controller that holds all Actions for login and register system
  * Author : Daniel Palmer
  * Date: 2022-02-05
+ * 
+ * Updated by: Alex Cress -Various changes throughout
  */
 
 namespace TravelExperts.Controllers
@@ -31,7 +33,9 @@ namespace TravelExperts.Controllers
         }
         // Login Post method that handles Authenticate passed account values
         // Stores Authenticated account in the session and cookies
-        // Author : Daniel Palmer Alex Cress
+        // Author : Daniel Palmer
+        // Updated By: Alex Cress -added handling for invalid username/password
+        //                        -added cookie functionality
         [HttpPost]
         public async Task<IActionResult> Login(Customer customer)
         {
@@ -83,6 +87,7 @@ namespace TravelExperts.Controllers
             }
         }
 
+
         //Logs out user, removes customer data from cookies and session
         // Author: Daniel Palmer Alex Cress
         [Authorize]
@@ -103,6 +108,7 @@ namespace TravelExperts.Controllers
 
         // Handles the post from the register view, add the filled information to database
         // Creates user
+        //Updated by: Alex Cress -Fixed bug with login
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(Customer customer)
         {

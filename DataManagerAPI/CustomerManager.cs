@@ -38,6 +38,8 @@ namespace DataManagerAPI
 
             return db.Customers.ToList();
         }
+        //Updated by: Alex Cress -Added formatting
+        //                       -Return customer after complete
         /// <summary>
         /// Add provided customer to database
         /// </summary>
@@ -86,11 +88,18 @@ namespace DataManagerAPI
             }
         }
 
+        //Author: Alex Cress
+        /// <summary>
+        /// Updates an existing customer. The newCustomer object must have CustomerId set.
+        /// </summary>
+        /// <param name="newCustomer">the Customer you wish to update</param>
         public static void UpdateCustomer(Customer newCustomer)
         {
+            //Get reference
             TravelExpertsContext db = new TravelExpertsContext();
             Customer oldCustomer = db.Customers.Find(newCustomer.CustomerId);
 
+            //Update all info
             oldCustomer.CustFirstName = newCustomer.CustFirstName;
             oldCustomer.CustLastName = newCustomer.CustLastName;
             oldCustomer.CustUsername = newCustomer.CustUsername;
@@ -107,6 +116,12 @@ namespace DataManagerAPI
             db.SaveChanges();
         }
 
+        // Author: Alex Cress
+        /// <summary>
+        /// Removes optional formatting to a phone number string. This includes '(' ')' '-'
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns>a string with all formatting removed</returns>
         private static string FormatPhone(string phone)
         {
             if (String.IsNullOrEmpty(phone))
@@ -116,6 +131,12 @@ namespace DataManagerAPI
             return phone.Replace("(", "").Replace(")", "").Replace("-", "");
         }
 
+        // Author: Alex Cress
+        /// <summary>
+        /// Formats a postal code for insertion into the database.
+        /// </summary>
+        /// <param name="postal"></param>
+        /// <returns>the formatted string</returns>
         private static string FormatPostal(string postal)
         {
             if (!String.IsNullOrEmpty(postal) && postal.Length == 6)
