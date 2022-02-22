@@ -13,6 +13,11 @@
 @{
     ViewData["Title"] = "Shopping Cart";
 }
+
+@if (!CartIsEmpty)
+{
+    <script src="/js/cart.js" defer></script>
+}
 <br />
 <br />
 <div class="row">
@@ -23,7 +28,10 @@
     <div style="padding-top:0;" class="col-sm-8 card px-0 jumbotron">
         <div class="container-fluid ">
             <div class="row">
-                <h4 class="col-sm pl-2 py-2 cartHeader">Cart</h4>
+                <h4 class="col-sm pl-2 py-2 cartHeader">Cart 
+                    @if (!CartIsEmpty)
+                    {<span id="clearCartButton" class="float-right">&times;</span> }
+                </h4>
             </div>
             <div class="row ">
                 <div class="col m-auto">
@@ -43,6 +51,7 @@
                                     <div class="col-12 siteFont"><h3 class="font-weight-bold">@cartItem.Package.PkgName </h3></div>
                                     <div class="col-12 siteFont"><span class="font-italic">&quot;@cartItem.Package.PkgDesc &quot;&ensp;-&ensp;<span class="font-weight-bold">@cartItem.TripDuration days </span></span></div>
                                     <div class="col-12 siteFont"><span class="font-weight-bold">@cartItem.NumTravelers guests x @cartItem.Package.PkgBasePrice.ToString("c") </span></div>
+                                    <div class="col-12 siteFont"><a class="btn btn-danger font-weight-bold" asp-controller="Cart" asp-action="DeleteCartItem" asp-route-cartItemId="@cartItem.CartItemKey">Remove from Cart</a></div>
                                 </div>
                             }
                         }
@@ -62,3 +71,26 @@
         </div>
     </div>
 </div>
+
+@* Confirm dialog for emptying the cart *@
+@if (!CartIsEmpty)
+{
+    <div class="container cartClear" style="background-color: #303030; border: 1px solid #78A2CC; border-radius:10px" id="confirmDialog">
+        <div class="row bg-blue cartHeader">
+            <div class="col-12">
+                <h3 class="text-center text-white siteFont my-2">Confirm</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-3 siteFont">Do you want to remove all items from your cart?</div>
+        </div>
+        <div class="row justify-content-center my-3">
+            <div class="btn btn-success px-3 py-1 mr-2 siteFont" id="confirmYes">
+                Yes
+            </div>
+            <div class="btn btn-danger px-3 py-1 siteFont" id="confirmNo">
+                No
+            </div>
+        </div>
+    </div>
+} 

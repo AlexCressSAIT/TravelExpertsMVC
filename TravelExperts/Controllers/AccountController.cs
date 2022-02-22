@@ -87,11 +87,9 @@ namespace TravelExperts.Controllers
             }
         }
 
-        // Author: Alex Cress
-        /// <summary>
-        /// Logs out a customer and expires their cookie
-        /// </summary>
-        /// <returns>redirects to home</returns>
+
+        //Logs out user, removes customer data from cookies and session
+        // Author: Daniel Palmer Alex Cress
         [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
@@ -114,19 +112,20 @@ namespace TravelExperts.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(Customer customer)
         {
-
-                try
-                {
+            customer.CustPostal = customer.CustPostal.ToUpper();
+            // Checks the database to ensure the username is unique
+            try
+            {
                 CustomerManager.VerifyUsername(customer.CustUsername);
-                    Customer newCustomer = CustomerManager.AddCustomer(customer);
-                    await Login(customer);
-                    return RedirectToAction("Index", "Home");
-                }
-                catch
-                {
-                    ViewBag.UserNameError = "Username is already taken";
-                    return View();
-                }
+                Customer newCustomer = CustomerManager.AddCustomer(customer);
+                await Login(customer);
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                ViewBag.UserNameError = "Username is already taken";
+                return View();
+            }
             
         }
     }

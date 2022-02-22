@@ -1,5 +1,6 @@
 ﻿/*
     Site.css holds classes that override those of Bootstrap theme to adhere to custom theme and color scheme
+    Author: Daniel Palmer
 */
 
 :root {
@@ -74,6 +75,10 @@ a {
 .siteFont{
     color: #fff;
     font-size: 24px;
+}
+
+.cartClear{
+    width: 25%;
 }
 
 /* Style for Jumbotron*/
@@ -223,6 +228,12 @@ body {
     }
 }
 
+@media (max-width: 750px) {
+    .cartClear {
+        width: 100%;
+    }
+}
+
 @media (max-width: 576px){
     .cartViewCartIcon {
     }
@@ -242,4 +253,8 @@ body {
 
 .thumbnailBox{
     height: 100%;
+}
+
+#confirmDialog {
+    display: none;
 }
