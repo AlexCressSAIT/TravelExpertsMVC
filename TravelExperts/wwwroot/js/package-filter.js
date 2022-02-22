@@ -159,6 +159,7 @@
             .done(displayImages);
     }
 
+    //Updated by: Alex Cress -Added formatting
     // Display the package information
     function displayPkgInfo(data) {
         // Display an error message if something went wrong
